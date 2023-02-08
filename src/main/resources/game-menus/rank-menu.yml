@@ -1,0 +1,111 @@
+######################################################
+##                                                  ##
+##                    Set Ranks                     ##
+##                Developed by reussy               ##
+##                                                  ##
+######################################################
+
+# Yaml Validator: https://yamlchecker.com/
+# Yaml Formatter: https://codebeautify.org/yaml-validator
+# Format for gradients: "<GRADIENT:2C08BA>&lText here</GRADIENT:028A97>"
+# Format for default rainbow: "<RAINBOW1>Text here</RAINBOW>"
+# Format for solid colors: "<SOLID:FF0080>Text here"
+
+rank-menu:
+
+  title: "<GRADIENT:3aefff>&lRank Management Menu</GRADIENT:126f9a>"
+
+  rows: 6
+
+  # The size of this menu.
+  # This mean how many items per page will be displayed.
+  # In this case, how many bans will be displayed per page.
+  # When the value is exceeded, a new page will be created.
+  # - Make sure to set the rows
+  #   to a value that can fit
+  #   the amount of items.
+  groups-per-page: 45
+
+  # The position of the item to go to the next page.
+  next-page-position: 50
+
+  # The position of the item to go to the previous page.
+  previous-page-position: 48
+
+  # The position of the item to go to the previous menu.
+  back-position: 45
+
+  # You can add / remove items from this section.
+  custom-items:
+
+    1:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position: 49
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "BOOKSHELF"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&f► &bReports Menu"
+
+      # The lore of the item.
+      description:
+        - "&r"
+        - "&b► &fHere you can view all the reports"
+        - "&b► &fthat have been created and manage them."
+
+    2:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position:
+        - 45
+        - 46
+        - 47
+        - 48
+        - 50
+        - 51
+        - 52
+        - 53
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "LIGHT_BLUE_STAINED_GLASS_PANE"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&r "
+
+      # The lore of the item.
+      description:
+        - "&r "
+
+  items:
+
+    group-item:
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "BOOK"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&f► &b&l{GROUP_NAME}"
+
+      # The lore of the item.
+      description:
+        - "&r"
+        - " &b► &fReporter: &b{REPORTER}"

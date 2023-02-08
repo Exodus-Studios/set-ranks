@@ -14,6 +14,7 @@ import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.Duration;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -174,6 +175,23 @@ public class Utils {
     }
 
     /**
+     * Send a colorized message to the sender.
+     *
+     * @param sender       The sender related.
+     * @param message      The message to send.
+     * @param placeholders The placeholders to replace.
+     */
+    public static void send(CommandSender sender, String message, String[][] placeholders) {
+        if (message == null || message.isEmpty() || sender == null) return;
+
+        for (String[] placeholder : placeholders) {
+            message = message.replace(placeholder[0], placeholder[1]);
+        }
+
+        send(sender, message);
+    }
+
+    /**
      * Send a colorized message to the player.
      *
      * @param player       The player related.
@@ -295,8 +313,13 @@ public class Utils {
         xSound.ifPresent(value -> play(player, value, volume, pitch));
     }
 
-    public static Collection<Player> getFiltered(String permission) {
-        return Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission(permission)).collect(Collectors.toList());
+    public static boolean runCommand(CommandSender sender, String command) {
+
+        if (sender == null || command == null || command.isEmpty()) return false;
+
+        Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> Bukkit.dispatchCommand(sender, command));
+
+        return true;
     }
 
     public static String cleanStackTree(StackTraceElement[] e) {
@@ -388,5 +411,9 @@ public class Utils {
         if (text.toString().trim().length() == 0) return null;
         return text.toString();
 
+    }
+
+    public static Duration convertToDuration(long time, @NotNull TimeUnit timeUnit) {
+        return Duration.of(time, timeUnit.toChronoUnit());
     }
 }

@@ -3,6 +3,7 @@ package com.reussy.development.setranks.plugin.command;
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.config.PluginMessages;
 import com.reussy.development.setranks.plugin.utils.Utils;
+import net.luckperms.api.model.user.User;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
@@ -119,6 +120,10 @@ public abstract class BaseCommand extends BukkitCommand {
         return Bukkit.getPlayer(uuid);
     }
 
+    protected User getUser(@NotNull UUID uuid) {
+        return plugin.getLuckPermsAPI().get().getUserManager().getUser(uuid);
+    }
+
     /**
      * Get a collection of players with the permission
      * "staffutilities.staff".
@@ -127,7 +132,7 @@ public abstract class BaseCommand extends BukkitCommand {
      */
     protected Collection<Player> getStaff() {
         List<Player> staff = new ArrayList<>();
-        Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("staffutilities.staff")).forEach(staff::add);
+        Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission("setranks.staff")).forEach(staff::add);
         return staff;
     }
 
