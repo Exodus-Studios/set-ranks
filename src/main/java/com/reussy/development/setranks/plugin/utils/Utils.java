@@ -299,7 +299,21 @@ public class Utils {
         return Bukkit.getOnlinePlayers().stream().filter(player -> player.hasPermission(permission)).collect(Collectors.toList());
     }
 
-    public static Date date(String dateString) {
+    public static String cleanStackTree(StackTraceElement[] e) {
+
+        return Arrays.toString(e)
+                .replace("[", "")
+                .replace("]", "")
+                .replace(" ", "")
+                .replace(",", "\n")
+                .lines()
+                .filter(l -> l.contains("com.reussy"))
+                .map(a -> a.substring(a.lastIndexOf("//") + 2))
+                .collect(Collectors.joining("\n"));
+
+    }
+
+    public static Date StringToDate(String dateString) {
 
         List<String> validDateFormats = List.of("y", "m", "w", "d", "h", "s");
 
@@ -345,5 +359,34 @@ public class Utils {
         }
 
         return now.getTime();
+    }
+
+    public static @NotNull String calculateTime(long time) {
+        long days = TimeUnit.MILLISECONDS.toDays(time);
+        long hours = TimeUnit.MILLISECONDS.toHours(time) - TimeUnit.DAYS.toHours(days);
+        long minutes = TimeUnit.MILLISECONDS.toMinutes(time) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(time));
+        long seconds = TimeUnit.MILLISECONDS.toSeconds(time) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(time));
+
+        return (days > 0 ? days + "d " : "") + (hours > 0 ? hours + "h " : "") + (minutes > 0 ? minutes + "m " : "") + (seconds > 0 ? seconds + "s " : "");
+    }
+
+    public static @NotNull String calculateTime(int seconds) {
+        int days = seconds / 86400;
+        int hours = (seconds % 86400) / 3600;
+        int minutes = ((seconds % 86400) % 3600) / 60;
+        int secs = ((seconds % 86400) % 3600) % 60;
+
+        return (days > 0 ? days + "d " : "") + (hours > 0 ? hours + "h " : "") + (minutes > 0 ? minutes + "m " : "") + (secs > 0 ? secs + "s " : "");
+    }
+
+    public static @Nullable String getTextAsParameter(String @NotNull [] args, int index) {
+        StringBuilder text = new StringBuilder();
+        for (int i = index; i < args.length; i++) {
+            if (args[i] != null) text.append(args[i]).append(" ");
+        }
+
+        if (text.toString().trim().length() == 0) return null;
+        return text.toString();
+
     }
 }
