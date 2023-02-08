@@ -1,0 +1,8 @@
+name: "Set-Ranks"
+version: '${version}'
+main: com.reussy.development.setranks.plugin.SetRanksPlugin
+api-version: 1.13
+authors: [ reussy ]
+website: https://reussy.me
+depend:
+  - LuckPerms

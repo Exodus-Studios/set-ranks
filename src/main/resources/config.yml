@@ -1,0 +1,50 @@
+######################################################
+##                                                  ##
+##                    Set Ranks                     ##
+##                Developed by reussy               ##
+##                                                  ##
+######################################################
+
+# Yaml Validator: https://yamlchecker.com/
+# Yaml Formatter: https://codebeautify.org/yaml-validator
+# Format for gradients: "<GRADIENT:2C08BA>&lText here</GRADIENT:028A97>"
+# Format for default rainbow: "<RAINBOW1>Text here</RAINBOW>"
+# Format for solid colors: "<SOLID:FF0080>Text here"
+
+general:
+
+  # The debug mode is used to show more information
+  # about the plugin. It is recommended to enable
+  # if you are having issues with the plugin,
+  # or you are about to report an error.
+  debug: true
+
+# Category for sounds.
+# Leave empty to disable the sound.
+# The format is: "SOUND:VOLUME:PITCH"
+# - SOUND: The sound to play.
+# - VOLUME: The volume of the sound.
+# - PITCH: The pitch of the sound.
+sounds:
+
+  # The sound to play when the player toggles the chat channel.
+  toggle-chat-channel: "BLOCK_NOTE_BLOCK_PLING:1:1"
+
+messages:
+  prefix: "&8[&cSR&8] "
+
+  plugin-reloaded: "&aThe plugin has been reloaded successfully."
+
+  must-be-player: "&cYou must be a player to execute this command."
+
+  player-not-found: "&cThis player is offline or does not exist."
+
+  you-cant-use-yourself: "&cYou can't use this on yourself."
+
+  no-permission: "&cYou don't have the required permissions for this action."
+
+  set-rank:
+    usage: "&cUsage: /setrank <player> <rank> [duration]"
+    rank-not-found: "&cThis rank does not exist."
+    invalid-duration: "&cPlease enter a valid duration, or leave it empty for permanent."
+    success: "&aThe rank &6{RANK} &ahas been set to &6{PLAYER} &afor &6{DURATION}&a."
