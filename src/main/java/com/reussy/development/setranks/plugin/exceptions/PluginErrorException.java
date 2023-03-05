@@ -1,4 +1,4 @@
-package com.reussy.development.setranks.plugin.exception;
+package com.reussy.development.setranks.plugin.exceptions;
 
 import com.reussy.development.setranks.plugin.utils.Utils;
 

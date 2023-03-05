@@ -126,7 +126,7 @@ public abstract class BaseCommand extends BukkitCommand {
 
     /**
      * Get a collection of players with the permission
-     * "staffutilities.staff".
+     * "setranks.staff".
      *
      * @return Collection updated with the players with the permission.
      */
