@@ -10,6 +10,7 @@ public enum SQLTables {
     // Columns Name of each table
 
     public enum _USER_HISTORY {
+        ID,
         USER_CHANGED,
         USER_CHANGER,
         TYPE,
@@ -19,6 +20,7 @@ public enum SQLTables {
     }
 
     public enum _RANK_HISTORY {
+        ID,
         USER,
         RANK,
         TYPE,

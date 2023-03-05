@@ -38,6 +38,7 @@ public class QueryManager {
 
                 statement = connection.createStatement();
                 statement.addBatch("CREATE TABLE " + SQLTables.USER_HISTORY + " ("
+                        + SQLTables._USER_HISTORY.ID + " INT NOT NULL AUTO_INCREMENT,"
                         + SQLTables._USER_HISTORY.USER_CHANGED + " VARCHAR(36) NOT NULL,"
                         + SQLTables._USER_HISTORY.USER_CHANGER + " VARCHAR(36) NOT NULL,"
                         + SQLTables._USER_HISTORY.TYPE + " VARCHAR(20) NOT NULL,"
@@ -48,6 +49,7 @@ public class QueryManager {
                 Utils.sendDebugMessage("Table " + SQLTables.USER_HISTORY + " created.");
 
                 statement.addBatch("CREATE TABLE " + SQLTables.RANK_HISTORY + " ("
+                        + SQLTables._RANK_HISTORY.ID + " INT NOT NULL AUTO_INCREMENT,"
                         + SQLTables._RANK_HISTORY.USER + " VARCHAR(36) NOT NULL,"
                         + SQLTables._RANK_HISTORY.RANK + " VARCHAR(255) NOT NULL,"
                         + SQLTables._RANK_HISTORY.TYPE + " VARCHAR(20) NOT NULL,"
