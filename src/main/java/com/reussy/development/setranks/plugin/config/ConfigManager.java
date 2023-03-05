@@ -1,7 +1,7 @@
 package com.reussy.development.setranks.plugin.config;
 
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
-import com.reussy.development.setranks.plugin.exception.PluginErrorException;
+import com.reussy.development.setranks.plugin.exceptions.PluginErrorException;
 import com.reussy.development.setranks.plugin.utils.Utils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;

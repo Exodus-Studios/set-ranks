@@ -3,62 +3,26 @@ package com.reussy.development.setranks.plugin.sql;
 public enum SQLTables {
 
     // Tables Name
-    USER,
-    REPORT,
-    SANCTION,
-    LOGS,
-    TICKET;
+    USER_HISTORY,
+    RANK_HISTORY;
+
 
     // Columns Name of each table
 
-    public enum _USER {
-        UUID,
-        NAME;
-    }
-
-    public enum _REPORT {
-        ID,
-        REPORTED,
-        REPORTER,
-        STATUS,
-        REASON,
-        OPEN,
-        CLOSE,
-        COMMENT;
-    }
-
-    public enum _LOGS {
-        ID,
-        USER,
-        ACTION,
-        DATE,
-        NAME,
-        IP;
-
-    }
-
-    public enum _SANCTIONS {
-        ID,
+    public enum _USER_HISTORY {
+        USER_CHANGED,
+        USER_CHANGER,
         TYPE,
-        USER,
-        START,
-        END,
-        STAFF,
-        ACTIVE,
-        FORGIVER,
+        PERMISSION,
+        DATE,
         REASON,
-        IP;
     }
 
-    public enum _TICKET {
-        ID,
-        CREATOR,
-        ASSIGNED,
-        OPEN,
-        CLOSE,
+    public enum _RANK_HISTORY {
+        USER,
+        RANK,
+        TYPE,
         REASON,
-        MESSAGES,
-        STATUS,
-        PRIORITY;
+        DATE,
     }
 }

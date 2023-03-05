@@ -11,6 +11,26 @@
 # Format for default rainbow: "<RAINBOW1>Text here</RAINBOW>"
 # Format for solid colors: "<SOLID:FF0080>Text here"
 
+storage:
+
+  # The hostname of the database server.
+  address: "localhost"
+
+  # The port of the database server.
+  port: 3306
+
+  # The name of the database where the data should be stored.
+  database: "exodus"
+
+  # The username property for the database connection.
+  username: "root"
+
+  # The password property for the database connection.
+  password: "password"
+
+  # Use SSL for the database connection.
+  useSSL: false
+
 general:
 
   # The debug mode is used to show more information

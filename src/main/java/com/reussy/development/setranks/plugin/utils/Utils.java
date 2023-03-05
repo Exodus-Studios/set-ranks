@@ -3,7 +3,7 @@ package com.reussy.development.setranks.plugin.utils;
 import com.cryptomorin.xseries.XSound;
 import com.iridium.iridiumcolorapi.IridiumColorAPI;
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
-import com.reussy.development.setranks.plugin.exception.PluginErrorException;
+import com.reussy.development.setranks.plugin.exceptions.PluginErrorException;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
