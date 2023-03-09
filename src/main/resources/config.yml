@@ -126,6 +126,8 @@ messages:
 
   plugin-reloaded: "&aThe plugin has been reloaded successfully."
 
+  only-console: "&cThis command can only be executed by the console."
+
   must-be-player: "&cYou must be a player to execute this command."
 
   player-not-found: "&cThis player is offline or does not exist."

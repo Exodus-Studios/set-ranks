@@ -5,6 +5,7 @@ import com.reussy.development.setranks.plugin.command.rank.SetRankCommand;
 import com.reussy.development.setranks.plugin.config.ConfigManager;
 import com.reussy.development.setranks.plugin.config.MessageManager;
 import com.reussy.development.setranks.plugin.controller.GroupController;
+import com.reussy.development.setranks.plugin.event.PlayerMenuInteract;
 import com.reussy.development.setranks.plugin.integration.IPluginIntegration;
 import com.reussy.development.setranks.plugin.integration.LuckPermsAPI;
 import com.reussy.development.setranks.plugin.integration.PAPI;
@@ -14,6 +15,7 @@ import com.reussy.development.setranks.plugin.sql.QueryManager;
 import com.reussy.development.setranks.plugin.utils.ExodusPluginStatus;
 import com.reussy.development.setranks.plugin.utils.PluginStatus;
 import com.reussy.development.setranks.plugin.utils.Utils;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.stream.Stream;
@@ -48,6 +50,8 @@ public class SetRanksPlugin extends JavaPlugin {
         this.groupController = new GroupController(this);
 
         populateCommands();
+        registerEvents();
+
         this.pluginStatus.setStatus(ExodusPluginStatus.ENABLED);
     }
 
@@ -123,5 +127,11 @@ public class SetRanksPlugin extends JavaPlugin {
 
     public void setData(QueryManager queryManager) {
         this.queryManager = queryManager;
+    }
+
+    private void registerEvents() {
+
+        Bukkit.getPluginManager().registerEvents(new PlayerMenuInteract(), this);
+
     }
 }

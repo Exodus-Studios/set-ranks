@@ -3,6 +3,7 @@ package com.reussy.development.setranks.plugin.config;
 public enum PluginMessages {
 
     PLUGIN_PREFIX("plugin-prefix"),
+    ONLY_CONSOLE("only-console"),
     MUST_BE_PLAYER("must-be-player"),
     PLAYER_NOT_FOUND("player-not-found"),
     NO_PERMISSION("no-permission"),

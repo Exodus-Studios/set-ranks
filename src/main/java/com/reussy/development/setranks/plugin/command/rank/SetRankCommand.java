@@ -26,9 +26,12 @@ public class SetRankCommand extends BaseCommand {
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, String[] args) {
 
-        if (sender instanceof Player) return false;
+        if (sender instanceof Player){
+            Utils.send(sender, plugin.getMessageManager().get(PluginMessages.ONLY_CONSOLE, false));
+            return false;
+        }
 
-        if (args.length < 3) {
+        if (args.length < 2) {
             Utils.send(sender, plugin.getMessageManager().get(PluginMessages.SET_RANK_USAGE, false));
             return false;
         } else {
@@ -50,20 +53,19 @@ public class SetRankCommand extends BaseCommand {
                 if (hasGroup) {
                     Utils.send(sender, plugin.getMessageManager().get(PluginMessages.SET_RANK_ALREADY_IN_GROUP, false));
                 } else {
-
                     if (args[2] != null){
                         if (Utils.runCommand(sender, "lp user " + target.getName() + " parent addTemp " + group.getName() + " " + args[2])) {
                             Utils.send(sender, plugin.getMessageManager().get(PluginMessages.SET_RANK_SUCCESSFUL, false),
                                     new String[][]{{"{PLAYER_NAME}", target.getName()},
                                             {"{GROUP_NAME}", group.getName()},
                                             {"{DURATION}", Utils.StringToDate(args[2]).toString()}});
-                        } else {
-                            if (Utils.runCommand(sender, "lp user " + target.getName() + " parent add " + group.getName() + " " + args[2])) {
-                                Utils.send(sender, plugin.getMessageManager().get(PluginMessages.SET_RANK_SUCCESSFUL, false),
-                                        new String[][]{{"{PLAYER_NAME}", target.getName()},
-                                                {"{GROUP_NAME}", group.getName()},
-                                                {"{DURATION}", "Permanent"}});
-                            }
+                        }
+                    } else {
+                        if (Utils.runCommand(sender, "lp user " + target.getName() + " parent add " + group.getName())) {
+                            Utils.send(sender, plugin.getMessageManager().get(PluginMessages.SET_RANK_SUCCESSFUL, false),
+                                    new String[][]{{"{PLAYER_NAME}", target.getName()},
+                                            {"{GROUP_NAME}", group.getName()},
+                                            {"{DURATION}", "Permanent"}});
                         }
                     }
                 }
