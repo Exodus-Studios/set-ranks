@@ -19,7 +19,7 @@ public enum SQLTables {
         REASON,
     }
 
-    public enum _RANK_HISTORY {
+    public enum _ROLE_HISTORY {
         ID,
         USER,
         RANK,

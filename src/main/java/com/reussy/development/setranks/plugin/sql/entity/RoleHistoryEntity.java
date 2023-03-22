@@ -1,6 +1,7 @@
 package com.reussy.development.setranks.plugin.sql.entity;
 
 import java.math.BigInteger;
+import java.util.Date;
 import java.util.UUID;
 
 public class RoleHistoryEntity {
@@ -8,11 +9,11 @@ public class RoleHistoryEntity {
         private final BigInteger id;
         private final UUID user;
         private final String rank;
-        private final String date;
+        private final Date date;
         private final String reason;
         private final RoleTypeChange type;
 
-        public RoleHistoryEntity(BigInteger id, UUID user, String rank, String date, String reason, RoleTypeChange type) {
+        public RoleHistoryEntity(BigInteger id, UUID user, String rank, Date date, String reason, RoleTypeChange type) {
             this.id = id;
             this.user = user;
             this.rank = rank;
@@ -21,7 +22,7 @@ public class RoleHistoryEntity {
             this.type = type;
         }
 
-        public RoleHistoryEntity(UUID user, String rank, String date, String reason, RoleTypeChange type) {
+        public RoleHistoryEntity(UUID user, String rank, Date date, String reason, RoleTypeChange type) {
             this.id = BigInteger.valueOf(System.currentTimeMillis());
             this.user = user;
             this.rank = rank;
@@ -42,7 +43,7 @@ public class RoleHistoryEntity {
             return rank;
         }
 
-        public String getDate() {
+        public Date getDate() {
             return date;
         }
 

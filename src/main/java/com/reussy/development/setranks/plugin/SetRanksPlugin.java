@@ -39,11 +39,13 @@ public class SetRanksPlugin extends JavaPlugin {
 
         this.pluginStatus = new PluginStatus();
 
+        createConnectionDDBB();
+
+        populateIntegrations(this.luckPermsAPI = new LuckPermsAPI(), this.placeholderAPI = new PAPI());
+
         this.configManager = new ConfigManager(this, null);
         this.messageManager = new MessageManager(this, null);
         this.rankMenuManager = new ConfigManager(this, "game-menus/rank-menu.yml");
-
-        populateIntegrations(this.luckPermsAPI = new LuckPermsAPI(), this.placeholderAPI = new PAPI());
 
         this.elementBuilder = new ElementBuilder(this);
 
