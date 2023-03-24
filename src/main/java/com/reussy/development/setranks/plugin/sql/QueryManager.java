@@ -52,7 +52,8 @@ public class QueryManager {
                         + SQLTables._USER_HISTORY.TYPE + " VARCHAR(20) NOT NULL,"
                         + SQLTables._USER_HISTORY.PERMISSION + " VARCHAR(255) NOT NULL,"
                         + SQLTables._USER_HISTORY.DATE + " DATETIME NOT NULL,"
-                        + SQLTables._USER_HISTORY.REASON + " VARCHAR(255) NULL);");
+                        + SQLTables._USER_HISTORY.REASON + " VARCHAR(255) NULL," +
+                        "PRIMARY KEY (" + SQLTables._USER_HISTORY.ID + "));");
 
                 Utils.sendDebugMessage("Table " + SQLTables.USER_HISTORY + " created.");
 
@@ -62,7 +63,11 @@ public class QueryManager {
                         + SQLTables._ROLE_HISTORY.RANK + " VARCHAR(255) NOT NULL,"
                         + SQLTables._ROLE_HISTORY.TYPE + " VARCHAR(20) NOT NULL,"
                         + SQLTables._ROLE_HISTORY.REASON + " VARCHAR(255) NULL,"
-                        + SQLTables._ROLE_HISTORY.DATE + " DATETIME NOT NULL);");
+                        + SQLTables._ROLE_HISTORY.DATE + " DATETIME NOT NULL ," +
+                        "PRIMARY KEY (" + SQLTables._ROLE_HISTORY.ID + "));");
+
+
+
 
                 Utils.sendDebugMessage("Table " + SQLTables.RANK_HISTORY + " created.");
 
