@@ -2,9 +2,11 @@ package com.reussy.development.setranks.plugin.command;
 
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.config.PluginMessages;
+import com.reussy.development.setranks.plugin.utils.MinecraftVersion;
 import com.reussy.development.setranks.plugin.utils.Utils;
 import net.luckperms.api.model.user.User;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandMap;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.defaults.BukkitCommand;
@@ -14,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 
 /**
  * Class to handle the commands.
@@ -98,6 +101,27 @@ public abstract class BaseCommand extends BukkitCommand {
         return true;
     }
 
+    protected OfflinePlayer getOffline(UUID uuid, String username){
+
+        if (Bukkit.getPlayer(uuid) != null){
+            return Bukkit.getPlayer(uuid);
+        } else if (MinecraftVersion.getVersionNumber() >= 1_16_0){
+            if (Bukkit.getOfflinePlayerIfCached(username) != null){
+                return Bukkit.getOfflinePlayerIfCached(username);
+            }
+        }
+
+        return Bukkit.getOfflinePlayer(uuid);
+    }
+
+    protected User getOnlineUser(@NotNull UUID uuid) {
+        return plugin.getLuckPermsAPI().get().getUserManager().getUser(uuid);
+    }
+
+    protected CompletableFuture<User> getUser(UUID query){
+        return plugin.getLuckPermsAPI().get().getUserManager().loadUser(query);
+    }
+
     /**
      * Get the player from the name.
      *
@@ -118,10 +142,6 @@ public abstract class BaseCommand extends BukkitCommand {
 
     protected Player getTarget(@NotNull UUID uuid) {
         return Bukkit.getPlayer(uuid);
-    }
-
-    protected User getUser(@NotNull UUID uuid) {
-        return plugin.getLuckPermsAPI().get().getUserManager().getUser(uuid);
     }
 
     /**

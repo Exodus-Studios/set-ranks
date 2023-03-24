@@ -1,4 +1,4 @@
-package com.reussy.development.setranks.plugin.menu.type;
+package com.reussy.development.setranks.plugin.menu.type.rank;
 
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.menu.BaseMenu;
@@ -30,6 +30,8 @@ public class RankMenu extends BaseMenu {
                 .title(Component.text(Utils.colorize(title)))
                 .pageSize(pageSize)
                 .create();
+
+        setConfigManager(plugin.getRankMenuManager());
     }
 
     /**

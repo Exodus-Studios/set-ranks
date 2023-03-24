@@ -53,13 +53,13 @@ rank-menu:
       texture: ""
 
       # The display name of the item.
-      display-name: "&f► &bReports Menu"
+      display-name: "&f► &bManage Rank"
 
       # The lore of the item.
       description:
         - "&r"
-        - "&b► &fHere you can view all the reports"
-        - "&b► &fthat have been created and manage them."
+        - "&b► &fCustomize and manage the ranks"
+        - "&b► &fof the server through this menu."
 
     2:
 
@@ -108,4 +108,4 @@ rank-menu:
       # The lore of the item.
       description:
         - "&r"
-        - " &b► &fReporter: &b{REPORTER}"
+        - " &b► &f"

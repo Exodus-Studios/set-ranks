@@ -1,0 +1,425 @@
+######################################################
+##                                                  ##
+##                    Set Ranks                     ##
+##                Developed by reussy               ##
+##                                                  ##
+######################################################
+
+# Yaml Validator: https://yamlchecker.com/
+# Yaml Formatter: https://codebeautify.org/yaml-validator
+# Format for gradients: "<GRADIENT:2C08BA>&lText here</GRADIENT:028A97>"
+# Format for default rainbow: "<RAINBOW1>Text here</RAINBOW>"
+# Format for solid colors: "<SOLID:FF0080>Text here"
+
+user-menu:
+
+  title: "<GRADIENT:3aefff>&lUser Management Menu</GRADIENT:126f9a>"
+
+  rows: 6
+
+  # The size of this menu.
+  # This mean how many items per page will be displayed.
+  # In this case, how many bans will be displayed per page.
+  # When the value is exceeded, a new page will be created.
+  # - Make sure to set the rows
+  #   to a value that can fit
+  #   the amount of items.
+  users-per-page: 45
+
+  # The position of the item to go to the next page.
+  next-page-position: 50
+
+  # The position of the item to go to the previous page.
+  previous-page-position: 48
+
+  # The position of the item to go to the previous menu.
+  back-position: 45
+
+  # You can add / remove items from this section.
+  custom-items:
+
+    1:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position: 49
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "BOOKSHELF"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&f► &bManage Users"
+
+      # The lore of the item.
+      description:
+        - "&r"
+        - "&b► &fCustomize and manage the user"
+        - "&b► &fof the server through this menu."
+
+    2:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position:
+        - 45
+        - 46
+        - 47
+        - 48
+        - 50
+        - 51
+        - 52
+        - 53
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "LIGHT_BLUE_STAINED_GLASS_PANE"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&r "
+
+      # The lore of the item.
+      description:
+        - "&r "
+
+  items:
+
+    player-head-item:
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "PLAYER_HEAD"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: "{PLAYER_HEAD}"
+
+      # The display name of the item.
+      display-name: "&f► &b{PLAYER_NAME}"
+
+      # The lore of the item.
+      description:
+        - "&r"
+        - "&f► &3Click to open management menu."
+
+    offline-players-item:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position: 47
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "PLAYER_HEAD"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzY1ZjNiYWUwZDIwM2JhMTZmZTFkYzNkMTMwN2E4NmE2MzhiZTkyNDQ3MWYyM2U4MmFiZDlkNzhmOGEzZmNhIn19fQ=="
+
+      # The display name of the item.
+      display-name: "&f► &bSearch offline players"
+
+      # The lore of the item.
+      description:
+        - "&r"
+        - "&f► &3Click to filter offline players."
+
+    all-players-item:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position: 48
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "PLAYER_HEAD"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTE4OWYzNDdmNDI0NTBjZDJhMmU5YjhhNTM5ODgwN2QyOGM3ZjQyNTRiZDk5YThhNDk5Y2U1NDM1MzIwOTU1In19fQ=="
+
+      # The display name of the item.
+      display-name: "&f► &bSearch all players"
+
+      # The lore of the item.
+      description:
+        - "&r"
+        - "&f► &3Click to filter all players."
+
+    online-players-item:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position: 49
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "PLAYER_HEAD"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTNlOWY0ZGJhZGRlMGY3MjdjNTgwM2Q3NWQ4YmIzNzhmYjlmY2I0YjYwZDMzYmVjMTkwOTJhM2EyZTdiMDdhOSJ9fX0="
+
+      # The display name of the item.
+      display-name: "&f► &bSearch online players"
+
+      # The lore of the item.
+      description:
+        - "&r"
+        - "&f► &3Click to filter online players."
+
+user-management-menu:
+
+  title: "<GRADIENT:3aefff>&lManaging {PLAYER_NAME}</GRADIENT:126f9a>"
+
+  rows: 6
+
+  # The size of this menu.
+  # This mean how many items per page will be displayed.
+  # In this case, how many bans will be displayed per page.
+  # When the value is exceeded, a new page will be created.
+  # - Make sure to set the rows
+  #   to a value that can fit
+  #   the amount of items.
+  groups-per-page: 45
+
+  # The position of the item to go to the next page.
+  next-page-position: 50
+
+  # The position of the item to go to the previous page.
+  previous-page-position: 48
+
+  # The position of the item to go to the previous menu.
+  back-position: 45
+
+  # You can add / remove items from this section.
+  custom-items:
+
+    1:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position: 49
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "PLAYER_HEAD"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: "{PLAYER_HEAD}"
+
+      # The display name of the item.
+      display-name: "&f► &bManaging {PLAYER_NAME}"
+
+      # The lore of the item.
+      description:
+        - "&r"
+
+    2:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position:
+        - 45
+        - 46
+        - 47
+        - 48
+        - 50
+        - 51
+        - 52
+        - 53
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "LIGHT_BLUE_STAINED_GLASS_PANE"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&r "
+
+      # The lore of the item.
+      description:
+        - "&r "
+
+  items:
+
+    rank-item:
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "PAPER"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&f► &bRank {RANK_NAME}"
+
+      # The lore of the item.
+      description:
+        - "&r "
+        - "&f► &3Click to manage this rank for this user."
+
+user-rank-menu:
+
+  title: "<GRADIENT:3aefff>&l{RANK_NAME} - {PLAYER_NAME}</GRADIENT:126f9a>"
+
+  rows: 6
+
+  # You can add / remove items from this section.
+  custom-items:
+
+    1:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position: 49
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "BOOKSHELF"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&f► &bManage Users"
+
+      # The lore of the item.
+      description:
+        - "&r"
+        - "&b► &fCustomize and manage the user"
+        - "&b► &fof the server through this menu."
+
+    2:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position:
+        - 45
+        - 46
+        - 47
+        - 48
+        - 50
+        - 51
+        - 52
+        - 53
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "LIGHT_BLUE_STAINED_GLASS_PANE"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&r "
+
+      # The lore of the item.
+      description:
+        - "&r "
+
+  items:
+
+    # The item that represent the time in the menu.
+    1-minute:
+      # The time to add the rank to the user.
+      # - The time can be in seconds, minutes, hours, days, weeks, months or years.
+      # - You can use the following format: 1s, 1m, 1h, 1d, 1w, 1mo, 1y
+      # - or 1 second, 1 minute, 1 hour, 1 day, 1 week, 1 month, 1 year.
+      # - If the time is 0, will be permanent.
+      # - If the time is invalid or not specified, will be permanent.
+      time: "1:MINUTE"
+      position: 11
+      material: "CLOCK"
+      texture: ""
+      display-name: "&b► &fAdd 1 minute"
+      description:
+        - "&f► &3Click to add 1 minute."
+        - "&r"
+        - "&b► &fEnd Date: &b{PUNISHMENT_TIME}"
+    -1-minute:
+      time: "-1:MINUTE"
+      position: 15
+      material: "CLOCK"
+      texture: ""
+      display-name: "&b► &fRemove 1 minute"
+      description:
+        - "&f► &3Click to remove 1 minute."
+        - "&r"
+        - "&b► &fEnd Date: &b{PUNISHMENT_TIME}"
+    1-hour:
+      time: "1:HOUR"
+      position: 20
+      material: "CLOCK"
+      texture: ""
+      display-name: "&b► &fAdd 1 hour"
+      description:
+        - "&f► &3Click to add 1 hour."
+        - "&r"
+        - "&b► &fEnd Date: &b{PUNISHMENT_TIME}"
+    -1-hour:
+      time: "-1:HOUR"
+      position: 24
+      material: "CLOCK"
+      texture: ""
+      display-name: "&b► &fRemove 1 hour"
+      description:
+        - "&f► &3Click to remove 1 hour."
+        - "&r"
+        - "&b► &fEnd Date: &b{PUNISHMENT_TIME}"
+    1-day:
+      time: "1:DAY"
+      position: 29
+      material: "CLOCK"
+      texture: ""
+      display-name: "&b► &fAdd 1 day"
+      description:
+        - "&f► &3Click to add 1 day."
+        - "&r"
+        - "&b► &fEnd Date: &b{PUNISHMENT_TIME}"
+    -1-day:
+      time: "-1:DAY"
+      position: 33
+      material: "CLOCK"
+      texture: ""
+      display-name: "&b► &fRemove 1 day"
+      description:
+        - "&f► &3Click to remove 1 day."
+        - "&r"
+        - "&b► &fEnd Date: &b{PUNISHMENT_TIME}"
+    1-week:
+      time: "1:WEEK"
+      position: 38
+      material: "CLOCK"
+      texture: ""
+      display-name: "&b► &fAdd 1 week"
+      description:
+        - "&f► &3Click to add 1 week."
+        - "&r"
+        - "&b► &fEnd Date: &b{PUNISHMENT_TIME}"
+    -1-week:
+      time: "-1:WEEK"
+      position: 42
+      material: "CLOCK"
+      texture: ""
+      display-name: "&b► &fRemove 1 week"
+      description:
+        - "&f► &3Click to remove 1 week."
+        - "&r"
+        - "&b► &fEnd Date: &b{PUNISHMENT_TIME}"

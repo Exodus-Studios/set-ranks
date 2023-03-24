@@ -2,6 +2,7 @@ package com.reussy.development.setranks.plugin;
 
 import com.reussy.development.setranks.plugin.command.rank.RankCommand;
 import com.reussy.development.setranks.plugin.command.rank.SetRankCommand;
+import com.reussy.development.setranks.plugin.command.user.UserCommand;
 import com.reussy.development.setranks.plugin.config.ConfigManager;
 import com.reussy.development.setranks.plugin.config.MessageManager;
 import com.reussy.development.setranks.plugin.controller.GroupController;
@@ -29,6 +30,7 @@ public class SetRanksPlugin extends JavaPlugin {
     private ConfigManager configManager;
     private MessageManager messageManager;
     private ConfigManager rankMenuManager;
+    private ConfigManager userMenuManager;
     private ElementBuilder elementBuilder;
     private LuckPermsAPI luckPermsAPI;
     private PAPI placeholderAPI;
@@ -42,6 +44,7 @@ public class SetRanksPlugin extends JavaPlugin {
         this.configManager = new ConfigManager(this, null);
         this.messageManager = new MessageManager(this, null);
         this.rankMenuManager = new ConfigManager(this, "game-menus/rank-menu.yml");
+        this.userMenuManager = new ConfigManager(this, "game-menus/user-menu.yml");
 
         populateIntegrations(this.luckPermsAPI = new LuckPermsAPI(), this.placeholderAPI = new PAPI());
 
@@ -82,6 +85,10 @@ public class SetRanksPlugin extends JavaPlugin {
         return rankMenuManager;
     }
 
+    public ConfigManager getUserMenuManager() {
+        return userMenuManager;
+    }
+
     public PAPI getPlaceholderAPI() {
         return placeholderAPI;
     }
@@ -101,6 +108,7 @@ public class SetRanksPlugin extends JavaPlugin {
     private void populateCommands() {
         new RankCommand(getConfigManager().get("commands", "rank"), this);
         new SetRankCommand(getConfigManager().get("commands", "set-rank"), this);
+        new UserCommand(getConfigManager().get("commands", "user"), this);
     }
 
     private void createConnectionDDBB() {

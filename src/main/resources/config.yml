@@ -121,6 +121,9 @@ commands:
   # The command to set the rank of a player.
   set-rank: "setrank"
 
+  # The command to open the users menu and manage them.
+  user: "user"
+
 messages:
   prefix: "&8[&cSR&8] "
 
