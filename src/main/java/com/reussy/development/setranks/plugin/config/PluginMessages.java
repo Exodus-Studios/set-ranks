@@ -22,7 +22,7 @@ public enum PluginMessages {
     GRANT_USAGE("grant.grant-usage"),
     UNGRANT_USAGE("grant.ungrant-usage"),
     GRANT_HISTORY_USAGE("grant.grant-history-usage"),
-    GRANT_CLEAR_HISTORY_USAGE("grant.grant-clear-history-usage"),
+    GRANT_CLEAR_HISTORY_USAGE("grant.clear-grant-history-usage"),
     GRANT_HISTORY_NO_HISTORY("grant.grant-history-no-history"),
     GRANT_HISTORY_CLEARED("grant.grant-history-cleared");
 
