@@ -105,9 +105,6 @@ public class ConfigManager {
     }
 
     public void reload() {
-
-        Utils.sendWarnMessage("Reloading config file " + file.getName() + " (" +
-                this.getClass().getSimpleName().replace("Manager", "") + ")... with " + configCache.size() + " values");
         configCache.clear();
         config = YamlConfiguration.loadConfiguration(file);
     }
