@@ -3,8 +3,6 @@ package com.reussy.development.setranks.plugin.command.grant;
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.command.BaseCommand;
 import com.reussy.development.setranks.plugin.menu.type.grant.GrantHistoryMenu;
-import com.reussy.development.setranks.plugin.sql.entity.RoleHistoryEntity;
-import com.reussy.development.setranks.plugin.sql.entity.RoleTypeChange;
 import com.reussy.development.setranks.plugin.sql.entity.UserHistoryEntity;
 import com.reussy.development.setranks.plugin.sql.entity.UserTypeChange;
 import org.bukkit.command.CommandSender;

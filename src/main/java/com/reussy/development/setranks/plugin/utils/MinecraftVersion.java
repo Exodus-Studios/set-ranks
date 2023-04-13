@@ -34,9 +34,11 @@ public enum MinecraftVersion {
     private static Boolean isPaper;
     public final boolean mojangMapping;
     private final int versionId;
+
     MinecraftVersion(int versionId) {
         this(versionId, false);
     }
+
     MinecraftVersion(int versionId, boolean _mojangMapping) {
         this.versionId = versionId;
         this.mojangMapping = _mojangMapping;
