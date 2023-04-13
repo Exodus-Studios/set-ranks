@@ -1,5 +1,11 @@
 package com.reussy.development.setranks.plugin;
 
+import com.reussy.development.setranks.plugin.command.admin.MainCommand;
+import com.reussy.development.setranks.plugin.command.grant.ClearGrantHistoryCommand;
+import com.reussy.development.setranks.plugin.command.grant.GrantCommand;
+import com.reussy.development.setranks.plugin.command.grant.GrantHistoryCommand;
+import com.reussy.development.setranks.plugin.command.grant.UnGrantCommand;
+import com.reussy.development.setranks.plugin.command.rank.PromoteCommand;
 import com.reussy.development.setranks.plugin.command.rank.RankCommand;
 import com.reussy.development.setranks.plugin.command.rank.SetRankCommand;
 import com.reussy.development.setranks.plugin.command.user.UserCommand;
@@ -16,9 +22,13 @@ import com.reussy.development.setranks.plugin.sql.QueryManager;
 import com.reussy.development.setranks.plugin.utils.ExodusPluginStatus;
 import com.reussy.development.setranks.plugin.utils.PluginStatus;
 import com.reussy.development.setranks.plugin.utils.Utils;
+import com.reussy.development.setranks.plugin.utils.scheduler.PluginScheduler;
+import com.reussy.development.setranks.plugin.utils.scheduler.SchedulerWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 public class SetRanksPlugin extends JavaPlugin {
@@ -31,10 +41,13 @@ public class SetRanksPlugin extends JavaPlugin {
     private MessageManager messageManager;
     private ConfigManager rankMenuManager;
     private ConfigManager userMenuManager;
+    private ConfigManager grantHistoryMenuManager;
+    private List<ConfigManager> configManagers;
     private ElementBuilder elementBuilder;
     private LuckPermsAPI luckPermsAPI;
     private PAPI placeholderAPI;
     private GroupController groupController;
+    private PluginScheduler pluginScheduler;
 
     @Override
     public void onEnable() {
@@ -45,6 +58,8 @@ public class SetRanksPlugin extends JavaPlugin {
         this.messageManager = new MessageManager(this, null);
         this.rankMenuManager = new ConfigManager(this, "game-menus/rank-menu.yml");
         this.userMenuManager = new ConfigManager(this, "game-menus/user-menu.yml");
+        this.grantHistoryMenuManager = new ConfigManager(this, "game-menus/grant-history-menu.yml");
+        this.configManagers = Arrays.asList(configManager, userMenuManager, rankMenuManager, grantHistoryMenuManager, messageManager);
 
         populateIntegrations(this.luckPermsAPI = new LuckPermsAPI(), this.placeholderAPI = new PAPI());
 
@@ -54,10 +69,14 @@ public class SetRanksPlugin extends JavaPlugin {
 
         this.groupController = new GroupController(this);
 
+        this.pluginScheduler = new SchedulerWrapper(this);
+
         populateCommands();
         registerEvents();
 
         this.pluginStatus.setStatus(ExodusPluginStatus.ENABLED);
+
+        this.getConfigManagers().forEach(ConfigManager::reload);
     }
 
     @Override
@@ -89,6 +108,14 @@ public class SetRanksPlugin extends JavaPlugin {
         return userMenuManager;
     }
 
+    public ConfigManager getGrantHistoryMenuManager() {
+        return grantHistoryMenuManager;
+    }
+
+    public List<ConfigManager> getConfigManagers() {
+        return configManagers;
+    }
+
     public PAPI getPlaceholderAPI() {
         return placeholderAPI;
     }
@@ -101,13 +128,25 @@ public class SetRanksPlugin extends JavaPlugin {
         return groupController;
     }
 
+    public PluginScheduler getPluginScheduler() {
+        return pluginScheduler;
+    }
+
     private void populateIntegrations(IPluginIntegration... pluginIntegrations) {
         Stream.of(pluginIntegrations).forEach(IPluginIntegration::enable);
     }
 
     private void populateCommands() {
+
+        new MainCommand(getConfigManager().get("commands", "main-command"), this);
+
         new RankCommand(getConfigManager().get("commands", "rank"), this);
         new SetRankCommand(getConfigManager().get("commands", "set-rank"), this);
+        new PromoteCommand(getConfigManager().get("commands", "promote"), this);
+        new GrantCommand(getConfigManager().get("commands", "grant"), this);
+        new UnGrantCommand(getConfigManager().get("commands", "ungrant"), this);
+        new GrantHistoryCommand(getConfigManager().get("commands", "grant-history"), this);
+        new ClearGrantHistoryCommand(getConfigManager().get("commands", "clear-grant-history"), this);
         new UserCommand(getConfigManager().get("commands", "user"), this);
     }
 

@@ -29,21 +29,18 @@ public enum MinecraftVersion {
     MC1_19_R2(1_19_2, true),
     MC1_19_R3(1_19_4, true);
 
-    private final int versionId;
+    private static MinecraftVersion version;
+    private static Boolean hasGsonSupport;
+    private static Boolean isPaper;
     public final boolean mojangMapping;
-
+    private final int versionId;
     MinecraftVersion(int versionId) {
         this(versionId, false);
     }
-
     MinecraftVersion(int versionId, boolean _mojangMapping) {
         this.versionId = versionId;
         this.mojangMapping = _mojangMapping;
     }
-
-    private static MinecraftVersion version;
-    private static Boolean hasGsonSupport;
-    private static Boolean isPaper;
 
     /**
      * Gets & sets the Minecraft version the server is running.
@@ -88,34 +85,12 @@ public enum MinecraftVersion {
     public static int getVersionNumber() {
         return version.versionId;
     }
+
     /**
      * @return The current MinecraftVersion the server is running.
      */
     public static MinecraftVersion getCurrentVersion() {
         return version;
-    }
-
-
-    /**
-     * @return True if method names are in Mojang format and need to be remapped internally
-     */
-    public  boolean isMojangMapping() {
-        return mojangMapping;
-    }
-
-    public String getPackageName() {
-        if(getVersion() == MinecraftVersion.Unknown) {
-            return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
-        }
-        return this.name().replace("MC", "v");
-    }
-
-
-    /**
-     * @return Integer representing the Minecraft version of the specific MinecraftVersion instance it's called from.
-     */
-    public int getVersionId() {
-        return versionId;
     }
 
     /**
@@ -132,7 +107,6 @@ public enum MinecraftVersion {
         }
         return hasGsonSupport;
     }
-
 
     /**
      * Returns true if the current versions is at least the given Version
@@ -156,7 +130,7 @@ public enum MinecraftVersion {
 
     public static void disableDuplicateUUIDReporting(JavaPlugin plugin) {
         FileConfiguration fc = plugin.getServer().spigot().getPaperConfig();
-        if(fc.contains("log-duplicate-entity-UUIDs"))
+        if (fc.contains("log-duplicate-entity-UUIDs"))
             return;
 
         fc.set("log-duplicate-entity-UUIDs", false);
@@ -168,5 +142,26 @@ public enum MinecraftVersion {
         } catch (Exception ev) {
             ev.printStackTrace();
         }
+    }
+
+    /**
+     * @return True if method names are in Mojang format and need to be remapped internally
+     */
+    public boolean isMojangMapping() {
+        return mojangMapping;
+    }
+
+    public String getPackageName() {
+        if (getVersion() == MinecraftVersion.Unknown) {
+            return Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+        }
+        return this.name().replace("MC", "v");
+    }
+
+    /**
+     * @return Integer representing the Minecraft version of the specific MinecraftVersion instance it's called from.
+     */
+    public int getVersionId() {
+        return versionId;
     }
 }

@@ -67,8 +67,6 @@ public class QueryManager {
                         "PRIMARY KEY (" + SQLTables._ROLE_HISTORY.ID + "));");
 
 
-
-
                 Utils.sendDebugMessage("Table " + SQLTables.RANK_HISTORY + " created.");
 
                 statement.executeBatch();

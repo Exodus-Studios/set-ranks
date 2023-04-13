@@ -101,12 +101,12 @@ public abstract class BaseCommand extends BukkitCommand {
         return true;
     }
 
-    protected OfflinePlayer getOffline(UUID uuid, String username){
+    protected OfflinePlayer getOffline(UUID uuid, String username) {
 
-        if (Bukkit.getPlayer(uuid) != null){
+        if (Bukkit.getPlayer(uuid) != null) {
             return Bukkit.getPlayer(uuid);
-        } else if (MinecraftVersion.getVersionNumber() >= 1_16_0){
-            if (Bukkit.getOfflinePlayerIfCached(username) != null){
+        } else if (MinecraftVersion.getVersionNumber() >= 1_16_0) {
+            if (Bukkit.getOfflinePlayerIfCached(username) != null) {
                 return Bukkit.getOfflinePlayerIfCached(username);
             }
         }
@@ -118,7 +118,7 @@ public abstract class BaseCommand extends BukkitCommand {
         return plugin.getLuckPermsAPI().get().getUserManager().getUser(uuid);
     }
 
-    protected CompletableFuture<User> getUser(UUID query){
+    protected CompletableFuture<User> getUser(UUID query) {
         return plugin.getLuckPermsAPI().get().getUserManager().loadUser(query);
     }
 

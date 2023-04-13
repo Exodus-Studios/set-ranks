@@ -19,6 +19,7 @@ import java.util.Arrays;
 public class RankMenu extends BaseMenu {
     private final Player viewer;
     private final PaginatedGui paginatedGui;
+
     public RankMenu(SetRanksPlugin plugin, Player viewer) {
         super(plugin, plugin.getRankMenuManager(), plugin.getRankMenuManager().get("rank-menu", "title"), plugin.getRankMenuManager().getInt("rank-menu", "rows"), true, plugin.getRankMenuManager().getInt("rank-menu", "groups-per-page"));
 
@@ -64,20 +65,20 @@ public class RankMenu extends BaseMenu {
         Arrays.stream(player).forEach(paginatedGui::open);
     }
 
-    private void populateGroups(){
+    private void populateGroups() {
         plugin.getLuckPermsAPI().get().getGroupManager().getLoadedGroups().forEach(group -> paginatedGui.addItem(ItemBuilder.from(createGroupItem(group)).asGuiItem()));
     }
 
-    private ItemStack createGroupItem(@NotNull Group group){
+    private ItemStack createGroupItem(@NotNull Group group) {
         return plugin.getElementBuilder().createFromSection(viewer, getConfigManager().getSection("rank-menu.items.group-item"),
                 new String[][]{{"{GROUP_NAME}", group.getName()}});
     }
 
-    private int getNextPosition(){
+    private int getNextPosition() {
         return getConfigManager().getInt("rank-menu", "next-page-position");
     }
 
-    private int getPreviousPosition(){
+    private int getPreviousPosition() {
         return getConfigManager().getInt("rank-menu", "previous-page-position");
     }
 }

@@ -115,11 +115,29 @@ menus:
 
 commands:
 
+  # The command to use different sub-commands.
+  main-command: "sr"
+
   # The command to open the groups menu and manage them.
   rank: "rank"
 
   # The command to set the rank of a player.
   set-rank: "setrank"
+
+  # The command to promote a player.
+  promote: "promote"
+
+  # The command to perform a grant action.
+  grant: "grant"
+
+  # The command to perform an un-grant action.
+  ungrant: "ungrant"
+
+  # The command to open the grant history menu.
+  grant-history: "granth"
+
+  # The command to clear the grant history of a player.
+  clear-grant-history: "cleargranthistory"
 
   # The command to open the users menu and manage them.
   user: "user"
@@ -145,3 +163,19 @@ messages:
     invalid-duration: "&cPlease enter a valid duration, or leave it empty for permanent."
     already-in-group: "&cThis player is already in this group."
     success: "&aThe rank &6{GROUP_NAME} &ahas been set to &6{PLAYER_NAME} &afor &6{DURATION}&a."
+
+  promote:
+    usage: "&cUsage: /promote <player> <track>"
+    unknown-track: "&cThis track does not exist."
+    no-tracks: "&cThere are no tracks available. Use /lp createtrack <name> to create one."
+    already-in-group: "&cThis player is already in this group."
+    success: "&aSuccessfully promoted &6{PLAYER_NAME} &ato rank &6{GROUP_NAME}&a."
+    failed: "&cFailed to promote &6{PLAYER_NAME} &ato rank &6{GROUP_NAME}&c."
+
+  grant:
+    grant-usage: "&cUsage: /grant <player> <rank> [reason]"
+    ungrant-usage: "&cUsage: /ungrant <player> <rank> [reason]"
+    grant-history-usage: "&cUsage: /granth <player>"
+    clear-grant-history-usage: "&cUsage: /cleargranthistory <player>"
+    grant-history-no-history: "&cThis player does not have any grant history."
+    grant-history-cleared: "&aThe grant history of &6{PLAYER_NAME} &ahas been cleared."

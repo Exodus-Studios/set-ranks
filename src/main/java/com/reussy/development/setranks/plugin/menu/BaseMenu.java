@@ -9,8 +9,6 @@ import dev.triumphteam.gui.guis.PaginatedGui;
 import org.bukkit.entity.HumanEntity;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.concurrent.ExecutionException;
-
 public abstract class BaseMenu {
 
     protected final SetRanksPlugin plugin;

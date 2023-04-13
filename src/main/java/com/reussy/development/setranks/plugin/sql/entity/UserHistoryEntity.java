@@ -24,7 +24,7 @@ public class UserHistoryEntity {
         this.reason = reason;
     }
 
-        public UserHistoryEntity(UUID userChanged, UUID userChanger, UserTypeChange type, String permission, Date date, String reason) {
+    public UserHistoryEntity(UUID userChanged, UUID userChanger, UserTypeChange type, String permission, Date date, String reason) {
         this.id = BigInteger.valueOf(System.currentTimeMillis());
         this.userChanged = userChanged;
         this.userChanger = userChanger;

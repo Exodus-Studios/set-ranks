@@ -24,12 +24,12 @@ public class RankCommand extends BaseCommand {
 
         final Player player = (Player) sender;
 
-        if (args.length == 0){
+        if (args.length == 0) {
             new RankMenu(plugin, player).open(player);
         } else if (args.length == 1) {
             final OfflinePlayer target = Bukkit.getOfflinePlayerIfCached(args[0]);
 
-            if (target == null){
+            if (target == null) {
                 Utils.send(player, plugin.getMessageManager().get(PluginMessages.PLAYER_NOT_FOUND, false));
                 return false;
             }

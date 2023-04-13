@@ -25,6 +25,7 @@ public class UserMenu extends BaseMenu {
     private final Player viewer;
     private final PaginatedGui paginatedGui;
     private String filter;
+
     public UserMenu(SetRanksPlugin plugin, Player viewer) {
         super(plugin, plugin.getUserMenuManager(), plugin.getUserMenuManager().get("user-menu", "title"), plugin.getUserMenuManager().getInt("user-menu", "rows"), true, plugin.getUserMenuManager().getInt("user-menu", "users-per-page"));
 

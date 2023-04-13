@@ -10,12 +10,8 @@ import dev.triumphteam.gui.guis.PaginatedGui;
 import net.kyori.adventure.text.Component;
 import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
-import net.luckperms.api.node.Node;
 import net.luckperms.api.node.NodeType;
 import net.luckperms.api.node.types.PermissionNode;
-import net.luckperms.api.query.QueryOptions;
-import net.md_5.bungee.api.chat.BaseComponent;
-import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
@@ -25,7 +21,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 public class UserManagementMenu extends BaseMenu {
@@ -34,6 +29,7 @@ public class UserManagementMenu extends BaseMenu {
     private final OfflinePlayer target;
     private final CompletableFuture<User> user;
     private final PaginatedGui paginatedGui;
+
     public UserManagementMenu(SetRanksPlugin plugin, Player manager, @NotNull OfflinePlayer target) {
         super(plugin, plugin.getUserMenuManager(), plugin.getUserMenuManager().get("user-management-menu", "title"), plugin.getUserMenuManager().getInt("user-management-menu", "rows"), true, plugin.getUserMenuManager().getInt("user-management-menu", "groups-per-page"));
 
@@ -66,17 +62,13 @@ public class UserManagementMenu extends BaseMenu {
         plugin.getElementBuilder().populateCustomItems(target, paginatedGui, getConfigManager(), getConfigManager().getSection("user-menu.custom-items"), null);
         plugin.getElementBuilder().setNavigationItems(paginatedGui, getNextPosition(), getPreviousPosition());
 
-        try {
-            user.get().getInheritedGroups(QueryOptions.defaultContextualOptions()).forEach(group -> paginatedGui.addItem(ItemBuilder.from(createRankItem(group)).asGuiItem(event -> {
-                try {
-                    new UserRankMenu(plugin, manager, target, user.get()).open(manager);
-                } catch (InterruptedException | ExecutionException e) {
-                    throw new RuntimeException(e);
-                }
-            })));
-        } catch (ExecutionException | InterruptedException e) {
-            e.printStackTrace();
-        }
+        plugin.getLuckPermsAPI().get().getGroupManager().getLoadedGroups().forEach(group -> paginatedGui.addItem(ItemBuilder.from(createRankItem(group)).asGuiItem(event -> {
+            try {
+                new UserRankMenu(plugin, manager, target, user.get(), group).open(manager);
+            } catch (InterruptedException | ExecutionException e) {
+                throw new RuntimeException(e);
+            }
+        })));
     }
 
     /**
@@ -107,15 +99,15 @@ public class UserManagementMenu extends BaseMenu {
     private @NotNull String permissionStatus(@NotNull User user, String permission) {
         PermissionNode node = PermissionNode.builder(permission).build();
 
-        if (user.getNodes(NodeType.PERMISSION).contains(node)){
+        if (user.getNodes(NodeType.PERMISSION).contains(node)) {
             return "Already granted";
         } else {
             return "Not granted";
         }
     }
 
-    private @NotNull String permissionClick(@NotNull User user, String permission){
-        if (permissionStatus(user, permission).equalsIgnoreCase("Already granted")){
+    private @NotNull String permissionClick(@NotNull User user, String permission) {
+        if (permissionStatus(user, permission).equalsIgnoreCase("Already granted")) {
             return "Click to add";
         } else {
             return "Click to remove";

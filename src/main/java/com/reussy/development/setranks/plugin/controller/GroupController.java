@@ -1,7 +1,6 @@
 package com.reussy.development.setranks.plugin.controller;
 
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
-import net.luckperms.api.context.DefaultContextKeys;
 import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
@@ -25,6 +24,28 @@ public class GroupController {
                     Collection<Group> inheritedGroups = user.getInheritedGroups(user.getQueryOptions());
                     return inheritedGroups.stream().anyMatch(group -> group.getName().equals(groupName));
                 });
+    }
+
+    public boolean hasGroupSync(UUID who, String groupName) {
+        User user = plugin.getLuckPermsAPI().get().getUserManager().getUser(who);
+        assert user != null;
+        Collection<Group> inheritedGroups = user.getInheritedGroups(user.getQueryOptions());
+        return inheritedGroups.stream().anyMatch(group -> group.getName().equals(groupName));
+    }
+
+    public CompletableFuture<Group> getGroup(UUID who) {
+        return plugin.getLuckPermsAPI().get().getUserManager().loadUser(who)
+                .thenApplyAsync(user -> {
+                    Collection<Group> inheritedGroups = user.getInheritedGroups(user.getQueryOptions());
+                    return inheritedGroups.stream().findFirst().orElse(null);
+                });
+    }
+
+    public Group getGroupSync(UUID who) {
+        User user = plugin.getLuckPermsAPI().get().getUserManager().getUser(who);
+        assert user != null;
+        Collection<Group> inheritedGroups = user.getInheritedGroups(user.getQueryOptions());
+        return inheritedGroups.stream().findFirst().orElse(null);
     }
 
     public Node buildNode(String groupName, Duration duration) {

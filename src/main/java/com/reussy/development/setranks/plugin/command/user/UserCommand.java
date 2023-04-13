@@ -2,7 +2,6 @@ package com.reussy.development.setranks.plugin.command.user;
 
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.command.BaseCommand;
-import com.reussy.development.setranks.plugin.menu.type.rank.RankMenu;
 import com.reussy.development.setranks.plugin.menu.type.user.UserMenu;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,7 +19,7 @@ public class UserCommand extends BaseCommand {
 
         final Player player = (Player) sender;
 
-        if (args.length == 0){
+        if (args.length == 0) {
             new UserMenu(plugin, player).open(player);
         }
 
