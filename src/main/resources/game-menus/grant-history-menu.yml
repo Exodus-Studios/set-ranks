@@ -108,4 +108,8 @@ history-menu:
       # The lore of the item.
       description:
         - "&r"
-        - "&f► &3"
+        - "&b► &fChanger: &b{USER_CHANGER}"
+        - "&b► &fChanged: &b{USER_CHANGED}"
+        - "&b► &fReason: &b{GRANT_REASON}"
+        - "&b► &fType: &b{GRANT_TYPE}"
+        - "&b► &fDate: &b{GRANT_DATE}"

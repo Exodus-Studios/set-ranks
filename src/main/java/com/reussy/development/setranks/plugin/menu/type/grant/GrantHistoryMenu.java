@@ -2,6 +2,7 @@ package com.reussy.development.setranks.plugin.menu.type.grant;
 
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.menu.BaseMenu;
+import com.reussy.development.setranks.plugin.sql.entity.UserHistoryEntity;
 import com.reussy.development.setranks.plugin.utils.Utils;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.BaseGui;
@@ -66,14 +67,19 @@ public class GrantHistoryMenu extends BaseMenu {
     }
 
     private void populateGrants() {
-        plugin.getQueryManager().getUserHistoryList(viewer.getUniqueId()).forEach((entity -> paginatedGui.addItem(ItemBuilder.from(createGrantItem()).asGuiItem(event -> {
+        plugin.getQueryManager().getUserHistoryList(viewer.getUniqueId()).forEach((entity -> paginatedGui.addItem(ItemBuilder.from(createGrantItem(entity)).asGuiItem(event -> {
             viewer.sendActionBar("test action bar " + entity.getId());
         }))));
     }
 
-    private ItemStack createGrantItem() {
+    private ItemStack createGrantItem(@NotNull UserHistoryEntity entity) {
         return plugin.getElementBuilder().createFromSection(getConfigManager().getSection("history-menu.items.grant-item"),
-                new String[][]{{"{GRANT_ID}", "1"}});
+                new String[][]{{"{GRANT_ID}", String.valueOf(entity.getId())},
+                        {"{USER_CHANGER}", entity.getUserChanger().toString()},
+                        {"{USER_CHANGED}", entity.getUserChanged().toString()},
+                        {"{GRANT_TYPE}", entity.getType().toString()},
+                        {"{GRANT_REASON}", entity.getReason()},
+                        {"{GRANT_DATE}", entity.getDate().toString()}});
     }
 
     private int getNextPosition() {
