@@ -42,6 +42,7 @@ public class UserManagementMenu extends BaseMenu {
                 .rows(rows)
                 .title(Component.text(Utils.colorize(title.replace("{PLAYER_NAME}", Objects.requireNonNull(target.getName())))))
                 .pageSize(pageSize)
+                .disableAllInteractions()
                 .create();
         setConfigManager(plugin.getUserMenuManager());
     }

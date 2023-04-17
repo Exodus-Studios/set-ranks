@@ -48,6 +48,7 @@ public class UserRankMenu extends BaseMenu {
                 .gui()
                 .rows(rows)
                 .title(Component.text(Utils.colorize(title.replace("{PLAYER_NAME}", Objects.requireNonNull(target.getName())).replace("{RANK_NAME}", group.getName()))))
+                .disableAllInteractions()
                 .create();
         setConfigManager(plugin.getUserMenuManager());
     }

@@ -30,6 +30,7 @@ public class RankMenu extends BaseMenu {
                 .rows(rows)
                 .title(Component.text(Utils.colorize(title)))
                 .pageSize(pageSize)
+                .disableAllInteractions()
                 .create();
 
         setConfigManager(plugin.getRankMenuManager());

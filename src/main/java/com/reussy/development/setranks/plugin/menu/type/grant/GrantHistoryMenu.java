@@ -9,11 +9,13 @@ import dev.triumphteam.gui.guis.BaseGui;
 import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.PaginatedGui;
 import net.kyori.adventure.text.Component;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.UUID;
 import java.util.stream.Stream;
 
 public class GrantHistoryMenu extends BaseMenu {
@@ -29,6 +31,7 @@ public class GrantHistoryMenu extends BaseMenu {
                 .title(Component.text(Utils.colorize(title)))
                 .rows(rows)
                 .pageSize(pageSize)
+                .disableAllInteractions()
                 .create();
 
         setConfigManager(plugin.getGrantHistoryMenuManager());
@@ -75,8 +78,8 @@ public class GrantHistoryMenu extends BaseMenu {
     private ItemStack createGrantItem(@NotNull UserHistoryEntity entity) {
         return plugin.getElementBuilder().createFromSection(getConfigManager().getSection("history-menu.items.grant-item"),
                 new String[][]{{"{GRANT_ID}", String.valueOf(entity.getId())},
-                        {"{USER_CHANGER}", entity.getUserChanger().toString()},
-                        {"{USER_CHANGED}", entity.getUserChanged().toString()},
+                        {"{USER_CHANGER}", getUsername(entity.getUserChanger())},
+                        {"{USER_CHANGED}", getUsername(entity.getUserChanged())},
                         {"{GRANT_TYPE}", entity.getType().toString()},
                         {"{GRANT_REASON}", entity.getReason()},
                         {"{GRANT_DATE}", entity.getDate().toString()}});
@@ -88,5 +91,9 @@ public class GrantHistoryMenu extends BaseMenu {
 
     private int getPreviousPosition() {
         return getConfigManager().getInt("history-menu", "previous-page-position");
+    }
+
+    private String getUsername(UUID uuid){
+        return Bukkit.getOfflinePlayer(uuid).getName();
     }
 }
