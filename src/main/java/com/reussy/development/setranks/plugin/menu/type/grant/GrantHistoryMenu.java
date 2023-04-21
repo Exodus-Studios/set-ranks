@@ -71,7 +71,7 @@ public class GrantHistoryMenu extends BaseMenu {
 
     private void populateGrants() {
         plugin.getQueryManager().getUserHistoryList(viewer.getUniqueId()).forEach((entity -> paginatedGui.addItem(ItemBuilder.from(createGrantItem(entity)).asGuiItem(event -> {
-            viewer.sendActionBar("test action bar " + entity.getId());
+            viewer.sendActionBar("test action bar " + entity.getReason());
         }))));
     }
 

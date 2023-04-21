@@ -26,8 +26,6 @@ public class GrantHistoryCommand extends BaseCommand {
 
         if (args.length == 0) {
             new GrantHistoryMenu(plugin, player).open(player);
-        } else if (args.length == 1) {
-            plugin.getQueryManager().insertUserHistory(new UserHistoryEntity(BigInteger.TEN, player.getUniqueId(), player.getUniqueId(), UserTypeChange.GRANT, "none", new Date(), "test"));
         }
 
         return false;
