@@ -259,5 +259,39 @@ public class QueryManager {
 
         return null;
     }
+
+    public void deleteRoleHistory(BigInteger id){
+        PreparedStatement ps = null;
+        try {
+
+            Utils.sendDebugMessage("Deleting role history...");
+            ps = connection.prepareStatement("DELETE FROM " + SQLTables.RANK_HISTORY + " WHERE "
+                    + SQLTables._ROLE_HISTORY.ID + " = ?;");
+
+            ps.setLong(1, id.longValue());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new PluginSQLException("Error deleting role history", e);
+        }
+    }
+
+    public void deleteUserHistory(BigInteger id){
+        PreparedStatement ps = null;
+        try {
+
+            Utils.sendDebugMessage("Deleting user history...");
+            ps = connection.prepareStatement("DELETE FROM " + SQLTables.USER_HISTORY + " WHERE "
+                    + SQLTables._USER_HISTORY.ID + " = ?;");
+
+            ps.setLong(1, id.longValue());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new PluginSQLException("Error deleting user history", e);
+        }
+    }
 }
 
