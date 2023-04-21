@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class UserHistoryEntity {
 
-    private final BigInteger id;
+    private BigInteger id;
     private final UUID userChanged;
     private final UUID userChanger;
     private final UserTypeChange type;
@@ -25,7 +25,6 @@ public class UserHistoryEntity {
     }
 
     public UserHistoryEntity(UUID userChanged, UUID userChanger, UserTypeChange type, String permission, Date date, String reason) {
-        this.id = BigInteger.valueOf(System.currentTimeMillis());
         this.userChanged = userChanged;
         this.userChanger = userChanger;
         this.type = type;

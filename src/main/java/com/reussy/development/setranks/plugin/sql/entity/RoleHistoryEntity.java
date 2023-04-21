@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public class RoleHistoryEntity {
 
-    private final BigInteger id;
+    private BigInteger id;
     private final UUID user;
     private final String rank;
     private final Date date;
@@ -23,7 +23,6 @@ public class RoleHistoryEntity {
     }
 
     public RoleHistoryEntity(UUID user, String rank, Date date, String reason, RoleTypeChange type) {
-        this.id = BigInteger.valueOf(System.currentTimeMillis());
         this.user = user;
         this.rank = rank;
         this.date = date;
