@@ -6,20 +6,14 @@ import com.reussy.development.setranks.plugin.config.PluginMessages;
 import com.reussy.development.setranks.plugin.sql.entity.UserHistoryEntity;
 import com.reussy.development.setranks.plugin.sql.entity.UserTypeChange;
 import com.reussy.development.setranks.plugin.utils.Utils;
-import net.luckperms.api.model.group.Group;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
 
 public class UnGrantCommand extends BaseCommand {
     public UnGrantCommand(String name, SetRanksPlugin plugin) {
@@ -73,7 +67,7 @@ public class UnGrantCommand extends BaseCommand {
                             .replace("{REASON}", reason));
                 });
 
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 Utils.send(player, plugin.getMessageManager().get(PluginMessages.UNGRANT_USAGE, false));
             }
         }

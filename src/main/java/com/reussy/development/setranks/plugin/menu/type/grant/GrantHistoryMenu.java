@@ -93,7 +93,7 @@ public class GrantHistoryMenu extends BaseMenu {
         return getConfigManager().getInt("history-menu", "previous-page-position");
     }
 
-    private String getUsername(UUID uuid){
+    private String getUsername(UUID uuid) {
         return Bukkit.getOfflinePlayer(uuid).getName();
     }
 }

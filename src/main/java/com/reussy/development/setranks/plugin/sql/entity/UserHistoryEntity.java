@@ -6,13 +6,13 @@ import java.util.UUID;
 
 public class UserHistoryEntity {
 
-    private BigInteger id;
     private final UUID userChanged;
     private final UUID userChanger;
     private final UserTypeChange type;
     private final String permission;
     private final Date date;
     private final String reason;
+    private BigInteger id;
 
     public UserHistoryEntity(BigInteger id, UUID userChanged, UUID userChanger, UserTypeChange type, String permission, Date date, String reason) {
         this.id = id;

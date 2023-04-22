@@ -70,7 +70,7 @@ public class SetRankCommand extends BaseCommand {
         } else if (args.length == 2) {
             return plugin.getLuckPermsAPI().get().getGroupManager().getLoadedGroups().stream().map(Group::getName).toList();
         } else if (args.length == 3) {
-            return List.of("<DURATION | 1s5m10d> ");
+            return List.of("<DURATION | 1s5m10d>");
         }
 
         return List.of();

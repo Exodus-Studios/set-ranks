@@ -3,14 +3,10 @@ package com.reussy.development.setranks.plugin.command.grant;
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.command.BaseCommand;
 import com.reussy.development.setranks.plugin.menu.type.grant.GrantHistoryMenu;
-import com.reussy.development.setranks.plugin.sql.entity.UserHistoryEntity;
-import com.reussy.development.setranks.plugin.sql.entity.UserTypeChange;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.math.BigInteger;
-import java.util.Date;
 import java.util.List;
 
 public class GrantHistoryCommand extends BaseCommand {

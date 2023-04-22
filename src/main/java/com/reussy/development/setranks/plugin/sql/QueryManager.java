@@ -153,7 +153,7 @@ public class QueryManager {
         }
     }
 
-    public List<UserHistoryEntity> getUsersHistory(){
+    public List<UserHistoryEntity> getUsersHistory() {
         PreparedStatement ps;
         try {
 
@@ -182,7 +182,7 @@ public class QueryManager {
         }
     }
 
-    public UserHistoryEntity getUserHistory(long id){
+    public UserHistoryEntity getUserHistory(long id) {
         PreparedStatement ps;
         try {
 
@@ -323,7 +323,7 @@ public class QueryManager {
         return null;
     }
 
-    public void deleteRoleHistory(BigInteger id){
+    public void deleteRoleHistory(BigInteger id) {
         PreparedStatement ps = null;
         try {
 
@@ -340,7 +340,7 @@ public class QueryManager {
         }
     }
 
-    public void deleteUserHistory(BigInteger id){
+    public void deleteUserHistory(BigInteger id) {
         PreparedStatement ps = null;
         try {
 
@@ -357,7 +357,7 @@ public class QueryManager {
         }
     }
 
-    public void clearUserHistory(UUID user){
+    public void clearUserHistory(UUID user) {
         PreparedStatement ps;
         try {
 

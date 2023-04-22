@@ -3,8 +3,6 @@ package com.reussy.development.setranks.plugin.command.grant;
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.command.BaseCommand;
 import com.reussy.development.setranks.plugin.config.PluginMessages;
-import com.reussy.development.setranks.plugin.sql.entity.RoleHistoryEntity;
-import com.reussy.development.setranks.plugin.sql.entity.RoleTypeChange;
 import com.reussy.development.setranks.plugin.sql.entity.UserHistoryEntity;
 import com.reussy.development.setranks.plugin.sql.entity.UserTypeChange;
 import com.reussy.development.setranks.plugin.utils.Utils;
@@ -15,7 +13,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;

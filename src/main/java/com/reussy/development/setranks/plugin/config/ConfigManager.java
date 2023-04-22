@@ -23,8 +23,8 @@ public class ConfigManager {
      * Le falta programar el getList()  */
 
     private final SetRanksPlugin plugin;
-    private File file;
     private final Map<String, HashMap<String, String>> configCache = new HashMap<>();
+    private File file;
     private FileConfiguration config;
 
 
