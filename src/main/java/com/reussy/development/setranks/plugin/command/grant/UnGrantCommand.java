@@ -3,11 +3,23 @@ package com.reussy.development.setranks.plugin.command.grant;
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.command.BaseCommand;
 import com.reussy.development.setranks.plugin.config.PluginMessages;
+import com.reussy.development.setranks.plugin.sql.entity.UserHistoryEntity;
+import com.reussy.development.setranks.plugin.sql.entity.UserTypeChange;
 import com.reussy.development.setranks.plugin.utils.Utils;
 import net.luckperms.api.model.group.Group;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 public class UnGrantCommand extends BaseCommand {
     public UnGrantCommand(String name, SetRanksPlugin plugin) {
@@ -17,34 +29,69 @@ public class UnGrantCommand extends BaseCommand {
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, String[] args) {
 
-        if (!hasPermission(sender, "setranks.command.ungrant")) return false;
+        if (!commonChecks(sender, "setranks.command.ungrant")) return false;
 
-        if (args.length < 3) {
+        final Player player = (Player) sender;
+
+        if (args.length < 2) {
             Utils.send(sender, plugin.getMessageManager().get(PluginMessages.UNGRANT_USAGE, false));
         } else {
+            try {
+                long id = Long.parseLong(args[0]);
 
-            final OfflinePlayer target = plugin.getServer().getOfflinePlayerIfCached(args[0]);
+                String reason = Utils.getTextAsParameter(args, 1) == null ? "No reason provided." : Utils.getTextAsParameter(args, 1);
 
-            if (target == null) {
-                Utils.send(sender, plugin.getMessageManager().get(PluginMessages.PLAYER_NOT_FOUND, false));
-                return false;
-            }
+                plugin.getPluginScheduler().doAsync(() -> {
 
-            String groupName = args[1];
-            Group group = plugin.getLuckPermsAPI().get().getGroupManager().getGroup(groupName);
+                    UserHistoryEntity userHistoryEntity = plugin.getQueryManager().getUserHistory(id);
 
-            if (group == null) {
-                Utils.send(sender, plugin.getMessageManager().get(PluginMessages.SET_RANK_RANK_NOT_FOUND, false));
-                return false;
-            }
+                    if (userHistoryEntity == null) {
+                        Utils.send(player, plugin.getMessageManager().get(PluginMessages.GRANT_NOT_FOUND, false));
+                        return;
+                    }
 
-            StringBuilder builder = new StringBuilder();
+                    plugin.getQueryManager().insertUserHistory(
+                            new UserHistoryEntity(
+                                    userHistoryEntity.getUserChanged(),
+                                    player.getUniqueId(),
+                                    UserTypeChange.UNGRANT,
+                                    userHistoryEntity.getPermission(), // In this case, the field permission is used to store the group name.
+                                    new Date(),
+                                    reason
+                            ));
 
-            for (int i = 3; i < args.length; i++) {
-                builder.append(args[i]).append(" ");
+                    plugin.getGroupController().hasGroup(userHistoryEntity.getUserChanged(), userHistoryEntity.getPermission()).thenAcceptAsync(hasGroup -> {
+                        if (hasGroup) {
+                            Utils.runCommand(sender, "lp user " + userHistoryEntity.getUserChanged() + " parent remove " + userHistoryEntity.getPermission());
+                        }
+                    });
+
+                    Utils.send(player, plugin.getMessageManager().get(PluginMessages.UNGRANT_CREATED, false)
+                            .replace("{GRANT_ID}", String.valueOf(id))
+                            .replace("{PLAYER_NAME}", Objects.requireNonNull(Bukkit.getOfflinePlayer(userHistoryEntity.getUserChanged()).getName()))
+                            .replace("{GROUP_NAME}", userHistoryEntity.getPermission())
+                            .replace("{REASON}", reason));
+                });
+
+            }catch (NumberFormatException e){
+                Utils.send(player, plugin.getMessageManager().get(PluginMessages.UNGRANT_USAGE, false));
             }
         }
 
         return false;
+    }
+
+    @NotNull
+    @Override
+    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
+
+        List<String> ids = plugin.getQueryManager().getUsersHistory().stream().map(UserHistoryEntity::getId).map(String::valueOf).toList();
+        if (args.length == 1) {
+            return ids;
+        } else if (args.length == 2) {
+            return List.of("<REASON>");
+        }
+
+        return List.of();
     }
 }

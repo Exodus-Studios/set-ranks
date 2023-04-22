@@ -27,6 +27,7 @@ import com.reussy.development.setranks.plugin.utils.scheduler.SchedulerWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Stream;
@@ -56,9 +57,9 @@ public class SetRanksPlugin extends JavaPlugin {
 
         this.configManager = new ConfigManager(this, null);
         this.messageManager = new MessageManager(this, null);
-        this.rankMenuManager = new ConfigManager(this, "game-menus/rank-menu.yml");
-        this.userMenuManager = new ConfigManager(this, "game-menus/user-menu.yml");
-        this.grantHistoryMenuManager = new ConfigManager(this, "game-menus/grant-history-menu.yml");
+        this.rankMenuManager = new ConfigManager(this, "rank-menu.yml", new File("plugins/StaffPanels/panels/"), new File("rank-menu.yml"));
+        this.userMenuManager = new ConfigManager(this, "user-menu.yml", new File("plugins/StaffPanels/panels/"), new File("user-menu.yml"));
+        this.grantHistoryMenuManager = new ConfigManager(this, "grant-history-menu.yml", new File("plugins/StaffPanels/panels/"), new File("grant-history-menu.yml"));
         this.configManagers = Arrays.asList(configManager, userMenuManager, rankMenuManager, grantHistoryMenuManager, messageManager);
 
         populateIntegrations(this.luckPermsAPI = new LuckPermsAPI(), this.placeholderAPI = new PAPI());
@@ -81,7 +82,6 @@ public class SetRanksPlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
-
     }
 
     public PluginStatus getPluginStatus() {

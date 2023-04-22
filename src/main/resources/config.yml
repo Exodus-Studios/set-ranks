@@ -50,12 +50,6 @@ sounds:
   # The sound to play when the player toggles the chat channel.
   toggle-chat-channel: "BLOCK_NOTE_BLOCK_PLING:1:1"
 
-# Category for grant settings.
-grant:
-
-  # The default reason for a grant / un-grant.
-  default-reason: "No reason provided"
-
 # Category of some general settings for the menus.
 menus:
 
@@ -179,9 +173,12 @@ messages:
     failed: "&cFailed to promote &6{PLAYER_NAME} &ato rank &6{GROUP_NAME}&c."
 
   grant:
-    grant-usage: "&cUsage: /grant <player> <rank> [reason]"
-    ungrant-usage: "&cUsage: /ungrant <player> <rank> [reason]"
+    grant-usage: "&cUsage: /grant <player> <rank> <reason>"
+    ungrant-usage: "&cUsage: /ungrant <id> <reason>"
     grant-history-usage: "&cUsage: /granth <player>"
     clear-grant-history-usage: "&cUsage: /cleargranthistory <player>"
-    grant-history-no-history: "&cThis player does not have any grant history."
+    no-history: "&cThis player does not have any grant history."
     grant-history-cleared: "&aThe grant history of &6{PLAYER_NAME} &ahas been cleared."
+    grant-created: "&aThe grant has been created successfully for &6{PLAYER_NAME} &awith the rank &6{GROUP_NAME} &aand reason &6{REASON}&a."
+    grant-not-found: "&cThis grant does not exist."
+    ungrant-created: "&aThe grant {GRANT_ID} has been ungranted successfully for &6{PLAYER_NAME} &awith the rank &6{GROUP_NAME} &aand reason &6{REASON}&a."

@@ -2,7 +2,7 @@ package com.reussy.development.setranks.plugin.sql.entity;
 
 public enum UserTypeChange {
     GRANT,
-    REVOKE,
+    UNGRANT,
     ADD_PERMISSION,
     REMOVE_PERMISSION,
 }

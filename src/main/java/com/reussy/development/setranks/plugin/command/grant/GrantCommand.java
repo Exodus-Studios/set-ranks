@@ -9,6 +9,7 @@ import com.reussy.development.setranks.plugin.sql.entity.UserHistoryEntity;
 import com.reussy.development.setranks.plugin.sql.entity.UserTypeChange;
 import com.reussy.development.setranks.plugin.utils.Utils;
 import net.luckperms.api.model.group.Group;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -16,6 +17,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 public class GrantCommand extends BaseCommand {
     public GrantCommand(String name, SetRanksPlugin plugin) {
@@ -48,16 +51,7 @@ public class GrantCommand extends BaseCommand {
                 return false;
             }
 
-            StringBuilder builder = new StringBuilder();
-
-            for (int i = 3; i < args.length; i++) {
-                builder.append(args[i]).append(" ");
-            }
-
-            if (builder.toString().isEmpty()) {
-                builder.append(plugin.getConfigManager().get("grant", "default-reason"));
-                return false;
-            }
+            String reason = Utils.getTextAsParameter(args, 2) == null ? "No reason provided." : Utils.getTextAsParameter(args, 2);
 
             plugin.getPluginScheduler().doAsync(() -> plugin.getQueryManager().insertUserHistory(new UserHistoryEntity(
                     target.getUniqueId(),
@@ -65,11 +59,28 @@ public class GrantCommand extends BaseCommand {
                     UserTypeChange.GRANT,
                     groupName, // In this case, the field permission is used to store the group name.
                     new Date(),
-                    builder.toString()
+                    reason
             )));
+            Utils.send(player, plugin.getMessageManager().get(PluginMessages.GRANT_CREATED, false)
+                    .replace("{PLAYER_NAME}", Objects.requireNonNull(target.getName())).replace("{GROUP_NAME}", group.getName()).replace("{REASON}", reason));
             return true;
         }
 
         return false;
+    }
+
+    @NotNull
+    @Override
+    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String @NotNull [] args) throws IllegalArgumentException {
+
+        if (args.length == 1) {
+            return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+        } else if (args.length == 2) {
+            return plugin.getLuckPermsAPI().get().getGroupManager().getLoadedGroups().stream().map(Group::getName).toList();
+        } else if (args.length == 3) {
+            return List.of("<REASON>");
+        }
+
+        return List.of();
     }
 }

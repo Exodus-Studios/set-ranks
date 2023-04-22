@@ -23,8 +23,11 @@ public enum PluginMessages {
     UNGRANT_USAGE("grant.ungrant-usage"),
     GRANT_HISTORY_USAGE("grant.grant-history-usage"),
     GRANT_CLEAR_HISTORY_USAGE("grant.clear-grant-history-usage"),
-    GRANT_HISTORY_NO_HISTORY("grant.grant-history-no-history"),
-    GRANT_HISTORY_CLEARED("grant.grant-history-cleared");
+    NO_GRANT_HISTORY("grant.no-history"),
+    GRANT_HISTORY_CLEARED("grant.grant-history-cleared"),
+    GRANT_CREATED("grant.grant-created"),
+    GRANT_NOT_FOUND("grant.grant-not-found"),
+    UNGRANT_CREATED("grant.ungrant-created");
 
     private final String prefix;
 

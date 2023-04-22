@@ -6,11 +6,15 @@ import com.reussy.development.setranks.plugin.utils.Utils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
 
-import java.io.File;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
 
 public class ConfigManager {
 
@@ -20,7 +24,7 @@ public class ConfigManager {
 
     private final SetRanksPlugin plugin;
     private File file;
-    private HashMap<String, HashMap<String, String>> configCache = new HashMap<>();
+    private final Map<String, HashMap<String, String>> configCache = new HashMap<>();
     private FileConfiguration config;
 
 
@@ -28,6 +32,11 @@ public class ConfigManager {
     public ConfigManager(SetRanksPlugin plugin, String fileName) {
         this.plugin = plugin;
         create(fileName);
+    }
+
+    public ConfigManager(SetRanksPlugin plugin, String resourcePath, File @NotNull ... files) {
+        this.plugin = plugin;
+        create(resourcePath, files);
     }
 
     private void create(String fileName) {
@@ -40,6 +49,16 @@ public class ConfigManager {
         if (!file.exists()) {
             plugin.saveResource(fileName, false);
         }
+    }
+
+    private void create(String resourcePath, File @NotNull ... files) {
+
+        if (files[1] == null) files[1] = new File("config.yml");
+
+        this.file = new File(files[0], files[1].getName());
+        config = YamlConfiguration.loadConfiguration(file);
+
+        saveResource(plugin, resourcePath, files[1], files[0], false);
     }
 
     public String get(String path, String key) {
@@ -90,7 +109,7 @@ public class ConfigManager {
         }
 
         if (!value.equalsIgnoreCase("true") && !value.equalsIgnoreCase("false")) {
-            throw new PluginErrorException("The value " + path + "." + key + " is not seted as boolean in the " + file.getName() + " file!", new IllegalArgumentException());
+            throw new PluginErrorException("The value " + path + "." + key + " is not set as boolean in the " + file.getName() + " file!", new IllegalArgumentException());
         }
 
         return Boolean.parseBoolean(value);
@@ -107,5 +126,44 @@ public class ConfigManager {
     public void reload() {
         configCache.clear();
         config = YamlConfiguration.loadConfiguration(file);
+    }
+
+    private void saveResource(JavaPlugin plugin, @NotNull String resourcePath, @NotNull File config, @NotNull File folder, boolean replace) {
+        if (!resourcePath.equals("")) {
+            resourcePath = resourcePath.replace('\\', '/');
+            InputStream in = plugin.getResource(resourcePath);
+            if (in == null) {
+                throw new IllegalArgumentException("The embedded resource '" + resourcePath + "' cannot be found in " + config);
+            } else {
+                File outFile = new File(folder, resourcePath);
+                int lastIndex = resourcePath.lastIndexOf(47);
+                File outDir = new File(folder, resourcePath.substring(0, lastIndex >= 0 ? lastIndex : 0));
+                if (!outDir.exists()) {
+                    outDir.mkdirs();
+                }
+
+                try {
+                    if (outFile.exists() && !replace) {
+
+                    } else {
+                        OutputStream out = new FileOutputStream(outFile);
+                        byte[] buf = new byte[1024];
+
+                        int len;
+                        while ((len = in.read(buf)) > 0) {
+                            out.write(buf, 0, len);
+                        }
+
+                        out.close();
+                        in.close();
+                    }
+                } catch (IOException var10) {
+                    plugin.getLogger().log(Level.SEVERE, "Could not save " + outFile.getName() + " to " + outFile, var10);
+                }
+
+            }
+        } else {
+            throw new IllegalArgumentException("ResourcePath cannot be null or empty");
+        }
     }
 }

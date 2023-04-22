@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.math.BigInteger;
 import java.util.Date;
+import java.util.List;
 
 public class GrantHistoryCommand extends BaseCommand {
     public GrantHistoryCommand(String name, SetRanksPlugin plugin) {
@@ -29,5 +30,11 @@ public class GrantHistoryCommand extends BaseCommand {
         }
 
         return false;
+    }
+
+    @NotNull
+    @Override
+    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
+        return List.of();
     }
 }

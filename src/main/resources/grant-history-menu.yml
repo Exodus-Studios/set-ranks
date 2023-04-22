@@ -110,6 +110,7 @@ history-menu:
         - "&r"
         - "&b► &fChanger: &b{USER_CHANGER}"
         - "&b► &fChanged: &b{USER_CHANGED}"
+        - "&b► &fRank: &b{RANK_NAME}"
         - "&b► &fReason: &b{GRANT_REASON}"
         - "&b► &fType: &b{GRANT_TYPE}"
         - "&b► &fDate: &b{GRANT_DATE}"

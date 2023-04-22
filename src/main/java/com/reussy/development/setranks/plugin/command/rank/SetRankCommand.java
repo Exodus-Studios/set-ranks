@@ -65,6 +65,14 @@ public class SetRankCommand extends BaseCommand {
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
 
+        if (args.length == 1) {
+            return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+        } else if (args.length == 2) {
+            return plugin.getLuckPermsAPI().get().getGroupManager().getLoadedGroups().stream().map(Group::getName).toList();
+        } else if (args.length == 3) {
+            return List.of("<DURATION | 1s5m10d> ");
+        }
+
         return List.of();
     }
 }

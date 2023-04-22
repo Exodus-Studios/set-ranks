@@ -13,6 +13,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class PromoteCommand extends BaseCommand {
     public PromoteCommand(String name, SetRanksPlugin plugin) {
         super(name, plugin);
@@ -69,5 +71,18 @@ public class PromoteCommand extends BaseCommand {
 
             return true;
         }
+    }
+
+    @NotNull
+    @Override
+    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
+
+        if (args.length == 1) {
+            return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
+        } else if (args.length == 2) {
+            return plugin.getLuckPermsAPI().get().getTrackManager().getLoadedTracks().stream().map(Track::getName).toList();
+        }
+
+        return List.of();
     }
 }

@@ -153,6 +153,69 @@ public class QueryManager {
         }
     }
 
+    public List<UserHistoryEntity> getUsersHistory(){
+        PreparedStatement ps;
+        try {
+
+            Utils.sendDebugMessage("Getting user history...");
+            ps = connection.prepareStatement("SELECT * FROM " + SQLTables.USER_HISTORY + " ORDER BY " + SQLTables._USER_HISTORY.ID + " DESC LIMIT 1;");
+
+            ResultSet rs = ps.executeQuery();
+
+            List<UserHistoryEntity> userHistoryEntities = new ArrayList<>();
+
+            while (rs.next()) {
+                userHistoryEntities.add(new UserHistoryEntity(
+                        BigInteger.valueOf(rs.getLong(String.valueOf(SQLTables._USER_HISTORY.ID))),
+                        UUID.fromString(rs.getString(String.valueOf(SQLTables._USER_HISTORY.USER_CHANGED))),
+                        UUID.fromString(rs.getString(String.valueOf(SQLTables._USER_HISTORY.USER_CHANGER))),
+                        UserTypeChange.valueOf(rs.getString(String.valueOf(SQLTables._USER_HISTORY.TYPE))),
+                        rs.getString(String.valueOf(SQLTables._USER_HISTORY.PERMISSION)),
+                        rs.getTimestamp(String.valueOf(SQLTables._USER_HISTORY.DATE)),
+                        rs.getString(String.valueOf(SQLTables._USER_HISTORY.REASON))));
+            }
+
+            return userHistoryEntities;
+
+        } catch (SQLException e) {
+            throw new PluginSQLException("Error getting role history", e);
+        }
+    }
+
+    public UserHistoryEntity getUserHistory(long id){
+        PreparedStatement ps;
+        try {
+
+            Utils.sendDebugMessage("Getting user history...");
+            ps = connection.prepareStatement("SELECT * FROM " + SQLTables.USER_HISTORY + " WHERE "
+                    + SQLTables._USER_HISTORY.ID + " = ?;");
+
+            ps.setLong(1, id);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+
+                UserHistoryEntity userHistoryEntity = new UserHistoryEntity(
+                        BigInteger.valueOf(rs.getLong(String.valueOf(SQLTables._USER_HISTORY.ID))),
+                        UUID.fromString(rs.getString(String.valueOf(SQLTables._USER_HISTORY.USER_CHANGED))),
+                        UUID.fromString(rs.getString(String.valueOf(SQLTables._USER_HISTORY.USER_CHANGER))),
+                        UserTypeChange.valueOf(rs.getString(String.valueOf(SQLTables._USER_HISTORY.TYPE))),
+                        rs.getString(String.valueOf(SQLTables._USER_HISTORY.PERMISSION)),
+                        rs.getTimestamp(String.valueOf(SQLTables._USER_HISTORY.DATE)),
+                        rs.getString(String.valueOf(SQLTables._USER_HISTORY.REASON))
+                );
+
+                return userHistoryEntity;
+            }
+
+        } catch (SQLException e) {
+            throw new PluginSQLException("Error getting role history", e);
+        }
+
+        return null;
+    }
+
     public List<UserHistoryEntity> getUserHistoryList(UUID user) {
 
         PreparedStatement ps = null;
@@ -169,7 +232,7 @@ public class QueryManager {
             List<UserHistoryEntity> list = new ArrayList<>();
 
             while (rs.next()) {
-
+                Utils.sendDebugMessage("Adding user history to list...");
                 UserHistoryEntity entity = new UserHistoryEntity(
                         BigInteger.valueOf(rs.getLong(String.valueOf(SQLTables._USER_HISTORY.ID))),
                         UUID.fromString(rs.getString(String.valueOf(SQLTables._USER_HISTORY.USER_CHANGED))),
@@ -291,6 +354,23 @@ public class QueryManager {
 
         } catch (SQLException e) {
             throw new PluginSQLException("Error deleting user history", e);
+        }
+    }
+
+    public void clearUserHistory(UUID user){
+        PreparedStatement ps;
+        try {
+
+            Utils.sendDebugMessage("Clearing user history...");
+            ps = connection.prepareStatement("DELETE FROM " + SQLTables.USER_HISTORY + " WHERE "
+                    + SQLTables._USER_HISTORY.USER_CHANGED + " = ?;");
+
+            ps.setString(1, user.toString());
+
+            ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new PluginSQLException("Error clearing user history", e);
         }
     }
 }

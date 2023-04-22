@@ -65,14 +65,13 @@ public class GrantHistoryMenu extends BaseMenu {
     @Override
     public void open(@NotNull HumanEntity... player) {
         setItems();
-        setItems();
         Stream.of(player).forEach(paginatedGui::open);
     }
 
     private void populateGrants() {
-        plugin.getQueryManager().getUserHistoryList(viewer.getUniqueId()).forEach((entity -> paginatedGui.addItem(ItemBuilder.from(createGrantItem(entity)).asGuiItem(event -> {
+        plugin.getQueryManager().getUserHistoryList(viewer.getUniqueId()).forEach(entity -> paginatedGui.addItem(ItemBuilder.from(createGrantItem(entity)).asGuiItem(event -> {
             viewer.sendActionBar("test action bar " + entity.getReason());
-        }))));
+        })));
     }
 
     private ItemStack createGrantItem(@NotNull UserHistoryEntity entity) {
@@ -80,6 +79,7 @@ public class GrantHistoryMenu extends BaseMenu {
                 new String[][]{{"{GRANT_ID}", String.valueOf(entity.getId())},
                         {"{USER_CHANGER}", getUsername(entity.getUserChanger())},
                         {"{USER_CHANGED}", getUsername(entity.getUserChanged())},
+                        {"{RANK_NAME}", entity.getPermission()},
                         {"{GRANT_TYPE}", entity.getType().toString()},
                         {"{GRANT_REASON}", entity.getReason()},
                         {"{GRANT_DATE}", entity.getDate().toString()}});
