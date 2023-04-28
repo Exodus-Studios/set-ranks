@@ -14,8 +14,6 @@ public enum PluginMessages {
     SET_RANK_ALREADY_IN_GROUP("set-rank.already-in-group"),
     SET_RANK_SUCCESSFUL("set-rank.success"),
     PROMOTE_USAGE("promote.usage"),
-    PROMOTE_NO_TRACKS("promote.no-tracks"),
-    PROMOTE_UNKNOWN_TRACK("promote.unknown-track"),
     PROMOTE_ALREADY_IN_GROUP("promote.already-in-group"),
     PROMOTE_SUCCESSFUL("promote.success"),
     PROMOTE_FAILED("promote.failed"),

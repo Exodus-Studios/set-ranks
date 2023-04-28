@@ -4,6 +4,7 @@ import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.node.Node;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.Duration;
 import java.util.Collection;
@@ -46,6 +47,10 @@ public class GroupController {
         assert user != null;
         Collection<Group> inheritedGroups = user.getInheritedGroups(user.getQueryOptions());
         return inheritedGroups.stream().findFirst().orElse(null);
+    }
+
+    public Group getNextGroup(@NotNull Group group) {
+        return plugin.getLuckPermsAPI().get().getGroupManager().getLoadedGroups().stream().allMatch(group1 -> group1.getWeight().isPresent() && group.getWeight().isPresent() && group1.getWeight().getAsInt() > group.getWeight().getAsInt()) ? null : plugin.getLuckPermsAPI().get().getGroupManager().getLoadedGroups().stream().filter(group1 -> group1.getWeight().isPresent() && group.getWeight().isPresent() && group1.getWeight().getAsInt() > group.getWeight().getAsInt()).findFirst().orElse(plugin.getLuckPermsAPI().get().getGroupManager().getGroup("default"));
     }
 
     public Node buildNode(String groupName, Duration duration) {

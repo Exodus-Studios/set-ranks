@@ -4,6 +4,7 @@ import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.command.BaseCommand;
 import com.reussy.development.setranks.plugin.config.PluginMessages;
 import com.reussy.development.setranks.plugin.utils.Utils;
+import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
 import net.luckperms.api.track.PromotionResult;
 import net.luckperms.api.track.Track;
@@ -26,7 +27,7 @@ public class PromoteCommand extends BaseCommand {
 
         final Player player = (Player) sender;
 
-        if (args.length < 2) {
+        if (args.length < 1) {
             Utils.send(sender, plugin.getMessageManager().get(PluginMessages.PROMOTE_USAGE, false));
             return false;
         } else {
@@ -44,34 +45,31 @@ public class PromoteCommand extends BaseCommand {
                 return false;
             }
 
-            if (plugin.getLuckPermsAPI().get().getTrackManager().getLoadedTracks().isEmpty()) {
-                Utils.send(sender, plugin.getMessageManager().get(PluginMessages.PROMOTE_NO_TRACKS, false));
+            Group group = plugin.getGroupController().getGroupSync(user.getUniqueId());
+            Group nextGroup = plugin.getGroupController().getNextGroup(group);
+
+            if (nextGroup == null) {
+                Utils.send(sender, plugin.getMessageManager().get(PluginMessages.SET_RANK_RANK_NOT_FOUND, false));
                 return false;
             }
 
-            Track track = plugin.getLuckPermsAPI().get().getTrackManager().getTrack(args[1]);
-
-            if (track == null) {
-                Utils.send(sender, plugin.getMessageManager().get(PluginMessages.PROMOTE_UNKNOWN_TRACK, false));
-                return false;
-            }
-
-            PromotionResult result = track.promote(user, user.getQueryOptions().context());
-
-            if (result.wasSuccessful()) {
-                Utils.send(sender, plugin.getMessageManager().get(PluginMessages.PROMOTE_SUCCESSFUL, false),
-                        new String[][]{{"{PLAYER_NAME}", target.getName()},
-                                {"{GROUP_NAME}", result.getGroupTo().orElseGet("Unknown"::toString)}});
-                plugin.getLuckPermsAPI().get().getUserManager().saveUser(user);
-            } else {
-                Utils.send(sender, plugin.getMessageManager().get(PluginMessages.PROMOTE_ALREADY_IN_GROUP, false),
-                        new String[][]{{"{PLAYER_NAME}", target.getName()},
-                                {"{GROUP_NAME}", result.getGroupTo().orElseGet("Unknown"::toString)}});
-            }
+            plugin.getGroupController().hasGroup(target.getUniqueId(), nextGroup.getName()).thenAcceptAsync(hasGroup -> {
+                if (hasGroup) {
+                    Utils.send(sender, plugin.getMessageManager().get(PluginMessages.PROMOTE_ALREADY_IN_GROUP, false));
+                } else {
+                    if (Utils.runCommand(sender, "lp user " + target.getName() + " parent set " + nextGroup.getName())) {
+                        Utils.send(sender, plugin.getMessageManager().get(PluginMessages.PROMOTE_SUCCESSFUL, false),
+                                new String[][]{{"{PLAYER_NAME}", target.getName()},
+                                        {"{GROUP_NAME}", nextGroup.getName()},
+                                        {"{DURATION}", "Permanent"}});
+                    }
+                }
+            });
 
             return true;
         }
     }
+
 
     @NotNull
     @Override

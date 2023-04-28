@@ -165,9 +165,7 @@ messages:
     success: "&aThe rank &6{GROUP_NAME} &ahas been set to &6{PLAYER_NAME} &afor &6{DURATION}&a."
 
   promote:
-    usage: "&cUsage: /promote <player> <track>"
-    unknown-track: "&cThis track does not exist."
-    no-tracks: "&cThere are no tracks available. Use /lp createtrack <name> to create one."
+    usage: "&cUsage: /promote <player>"
     already-in-group: "&cThis player is already in this group."
     success: "&aSuccessfully promoted &6{PLAYER_NAME} &ato rank &6{GROUP_NAME}&a."
     failed: "&cFailed to promote &6{PLAYER_NAME} &ato rank &6{GROUP_NAME}&c."
