@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.stream.Stream;
 
-public class UserRankMenu extends BaseMenu {
+public class SelectTimeMenu extends BaseMenu {
 
     private final Player manager;
     private final OfflinePlayer target;
@@ -33,8 +33,8 @@ public class UserRankMenu extends BaseMenu {
     private Calendar calendar;
     private Date date;
 
-    public UserRankMenu(SetRanksPlugin plugin, Player manager, @NotNull OfflinePlayer target, @NotNull User user, @NotNull Group group) {
-        super(plugin, plugin.getUserMenuManager(), plugin.getUserMenuManager().get("user-rank-menu", "title"), plugin.getUserMenuManager().getInt("user-rank-menu", "rows"), false, 1);
+    public SelectTimeMenu(SetRanksPlugin plugin, Player manager, @NotNull OfflinePlayer target, @NotNull User user, @NotNull Group group) {
+        super(plugin, plugin.getUserRankMenuManager(), plugin.getUserRankMenuManager().get("select-time-menu", "title"), plugin.getUserRankMenuManager().getInt("select-time-menu", "rows"), false, 1);
 
         this.manager = manager;
         this.target = target;
@@ -50,7 +50,7 @@ public class UserRankMenu extends BaseMenu {
                 .title(Component.text(Utils.colorize(title.replace("{PLAYER_NAME}", Objects.requireNonNull(target.getName())).replace("{RANK_NAME}", group.getName()))))
                 .disableAllInteractions()
                 .create();
-        setConfigManager(plugin.getUserMenuManager());
+        setConfigManager(plugin.getUserRankMenuManager());
     }
 
     /**
@@ -66,9 +66,9 @@ public class UserRankMenu extends BaseMenu {
      */
     @Override
     protected void setItems() {
-        plugin.getElementBuilder().populateCustomItems(target, gui, getConfigManager(), getConfigManager().getSection("user-rank-menu.custom-items"), null);
+        plugin.getElementBuilder().populateCustomItems(target, gui, getConfigManager(), getConfigManager().getSection("select-time-menu.custom-items"), null);
 
-        setItem(getBackPosition(), ItemBuilder.from(plugin.getElementBuilder().getBackItem()).asGuiItem(event -> new UserManagementMenu(plugin, manager, target).open(event.getWhoClicked())));
+        setItem(getBackPosition(), ItemBuilder.from(plugin.getElementBuilder().getBackItem()).asGuiItem(event -> new SelectRankMenu(plugin, manager, target).open(event.getWhoClicked())));
 
         populateTimes();
 
@@ -108,10 +108,10 @@ public class UserRankMenu extends BaseMenu {
     }
 
     private void populateTimes() {
-        for (String time : getConfigManager().getSection("user-rank-menu.items").getKeys(false)) {
+        for (String time : getConfigManager().getSection("select-time-menu.items").getKeys(false)) {
             setItem(getPosition(time), ItemBuilder.from(createTimeItem(time)).asGuiItem(event -> {
-                if (!modify(number(getConfigManager().get("user-rank-menu.items." + time, "time")), unit(getConfigManager().get("user-rank-menu.items." + time, "time")))) {
-                    gui.updateTitle(Utils.colorize(getConfigManager().get("user-rank-menu", "wrong-date-title").replace("{PLAYER_NAME}", target.getName()).replace("{RANK_NAME}", group.getName())));
+                if (!modify(number(getConfigManager().get("select-time-menu.items." + time, "time")), unit(getConfigManager().get("select-time-menu.items." + time, "time")))) {
+                    gui.updateTitle(Utils.colorize(getConfigManager().get("select-time-menu", "wrong-date-title").replace("{PLAYER_NAME}", target.getName()).replace("{RANK_NAME}", group.getName())));
 
                     plugin.getPluginScheduler().doSyncLater(() -> gui.updateTitle(Utils.colorize(getTitle().replace("{PLAYER_NAME}", target.getName()).replace("{RANK_NAME}", group.getName()))), 35L);
                 }
@@ -121,43 +121,43 @@ public class UserRankMenu extends BaseMenu {
     }
 
     private void updateTimes() {
-        for (String time : getConfigManager().getSection("user-rank-menu.items").getKeys(false)) {
+        for (String time : getConfigManager().getSection("select-time-menu.items").getKeys(false)) {
             gui.updateItem(getPosition(time), createTimeItem(time));
         }
     }
 
     private ItemStack createTimeItem(@NotNull String reason) {
         return plugin.getElementBuilder()
-                .createFromSection(target.getName(), getConfigManager().getSection("user-rank-menu.items." + reason),
+                .createFromSection(target.getName(), getConfigManager().getSection("select-time-menu.items." + reason),
                         new String[][]{{"{CURRENT_TIME}", Utils.calculateTime(date.getTime() - System.currentTimeMillis())}});
     }
 
     private int getPosition(String path) {
-        return Integer.parseInt(getConfigManager().get("user-rank-menu.items." + path, ".position"));
+        return Integer.parseInt(getConfigManager().get("select-time-menu.items." + path, ".position"));
     }
 
     private ItemStack createPermanentItem() {
         return plugin.getElementBuilder()
-                .createFromSection(target.getName(), getConfigManager().getSection("user-rank-menu.items.permanent-rank-item"),
+                .createFromSection(target.getName(), getConfigManager().getSection("select-time-menu.items.permanent-rank-item"),
                         new String[][]{{"{CURRENT_TIME}", Utils.calculateTime(date.getTime() - System.currentTimeMillis())}});
     }
 
     private int getPermanentPosition() {
-        return Integer.parseInt(getConfigManager().get("user-rank-menu.items.permanent-rank-item", "position"));
+        return Integer.parseInt(getConfigManager().get("select-time-menu.items.permanent-rank-item", "position"));
     }
 
     private ItemStack createGiveRankItem() {
         return plugin.getElementBuilder()
-                .createFromSection(target.getName(), getConfigManager().getSection("user-rank-menu.items.give-rank-item"),
+                .createFromSection(target.getName(), getConfigManager().getSection("select-time-menu.items.give-rank-item"),
                         new String[][]{{"{CURRENT_TIME}", Utils.calculateTime(date.getTime() - System.currentTimeMillis())}});
     }
 
     private int getGiveRankPosition() {
-        return Integer.parseInt(getConfigManager().get("user-rank-menu.items.give-rank-item", "position"));
+        return Integer.parseInt(getConfigManager().get("select-time-menu.items.give-rank-item", "position"));
     }
 
     private int getBackPosition() {
-        return Integer.parseInt(getConfigManager().get("user-rank-menu", "back-position"));
+        return Integer.parseInt(getConfigManager().get("select-time-menu", "back-position"));
     }
 
     private int number(@NotNull String time) {

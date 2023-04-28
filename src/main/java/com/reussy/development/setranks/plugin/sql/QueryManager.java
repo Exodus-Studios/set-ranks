@@ -141,7 +141,7 @@ public class QueryManager {
             ps.setString(1, entity.getUserChanged().toString());
             ps.setString(2, entity.getUserChanger().toString());
             ps.setString(3, entity.getType().toString());
-            ps.setString(4, entity.getPermission());
+            ps.setString(4, entity.getRank());
             ps.setTimestamp(5, new Timestamp(entity.getDate().getTime()));
             ps.setString(6, entity.getReason());
 

@@ -10,6 +10,7 @@ import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.PaginatedGui;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -21,11 +22,13 @@ import java.util.stream.Stream;
 public class GrantHistoryMenu extends BaseMenu {
 
     private final Player viewer;
+    private final OfflinePlayer target;
     private final PaginatedGui paginatedGui;
 
-    public GrantHistoryMenu(SetRanksPlugin plugin, Player viewer) {
+    public GrantHistoryMenu(SetRanksPlugin plugin, Player viewer, OfflinePlayer target) {
         super(plugin, plugin.getGrantHistoryMenuManager().get("history-menu", "title"), plugin.getGrantHistoryMenuManager().getInt("history-menu", "rows"), true, plugin.getGrantHistoryMenuManager().getInt("history-menu", "grants-per-page"));
         this.viewer = viewer;
+        this.target = target;
 
         this.paginatedGui = Gui.paginated()
                 .title(Component.text(Utils.colorize(title)))
@@ -69,9 +72,7 @@ public class GrantHistoryMenu extends BaseMenu {
     }
 
     private void populateGrants() {
-        plugin.getQueryManager().getUserHistoryList(viewer.getUniqueId()).forEach(entity -> paginatedGui.addItem(ItemBuilder.from(createGrantItem(entity)).asGuiItem(event -> {
-            viewer.sendActionBar("test action bar " + entity.getReason());
-        })));
+        plugin.getQueryManager().getUserHistoryList(target.getUniqueId()).forEach(entity -> paginatedGui.addItem(ItemBuilder.from(createGrantItem(entity)).asGuiItem(event -> new GrantEditMenu(plugin, viewer, entity).open(viewer))));
     }
 
     private ItemStack createGrantItem(@NotNull UserHistoryEntity entity) {
@@ -79,7 +80,7 @@ public class GrantHistoryMenu extends BaseMenu {
                 new String[][]{{"{GRANT_ID}", String.valueOf(entity.getId())},
                         {"{USER_CHANGER}", getUsername(entity.getUserChanger())},
                         {"{USER_CHANGED}", getUsername(entity.getUserChanged())},
-                        {"{RANK_NAME}", entity.getPermission()},
+                        {"{RANK_NAME}", entity.getRank()},
                         {"{GRANT_TYPE}", entity.getType().toString()},
                         {"{GRANT_REASON}", entity.getReason()},
                         {"{GRANT_DATE}", entity.getDate().toString()}});

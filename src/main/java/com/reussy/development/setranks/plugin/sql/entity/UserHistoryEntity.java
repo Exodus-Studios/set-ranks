@@ -49,7 +49,7 @@ public class UserHistoryEntity {
         return type;
     }
 
-    public String getPermission() {
+    public String getRank() {
         return permission;
     }
 

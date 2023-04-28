@@ -8,7 +8,6 @@ import com.reussy.development.setranks.plugin.command.grant.UnGrantCommand;
 import com.reussy.development.setranks.plugin.command.rank.PromoteCommand;
 import com.reussy.development.setranks.plugin.command.rank.RankCommand;
 import com.reussy.development.setranks.plugin.command.rank.SetRankCommand;
-import com.reussy.development.setranks.plugin.command.user.UserCommand;
 import com.reussy.development.setranks.plugin.config.ConfigManager;
 import com.reussy.development.setranks.plugin.config.MessageManager;
 import com.reussy.development.setranks.plugin.controller.GroupController;
@@ -41,8 +40,9 @@ public class SetRanksPlugin extends JavaPlugin {
     private ConfigManager configManager;
     private MessageManager messageManager;
     private ConfigManager rankMenuManager;
-    private ConfigManager userMenuManager;
+    private ConfigManager userRankMenuManager;
     private ConfigManager grantHistoryMenuManager;
+    private ConfigManager editGrantMenuManager;
     private List<ConfigManager> configManagers;
     private ElementBuilder elementBuilder;
     private LuckPermsAPI luckPermsAPI;
@@ -57,10 +57,11 @@ public class SetRanksPlugin extends JavaPlugin {
 
         this.configManager = new ConfigManager(this, null);
         this.messageManager = new MessageManager(this, null);
-        this.rankMenuManager = new ConfigManager(this, "rank-menu.yml", new File("plugins/StaffPanels/panels/"), new File("rank-menu.yml"));
-        this.userMenuManager = new ConfigManager(this, "user-menu.yml", new File("plugins/StaffPanels/panels/"), new File("user-menu.yml"));
+        //this.rankMenuManager = new ConfigManager(this, "rank-menu.yml", new File("plugins/StaffPanels/panels/"), new File("rank-menu.yml"));
+        this.userRankMenuManager = new ConfigManager(this, "user-rank-management-menu.yml", new File("plugins/StaffPanels/panels/"), new File("user-rank-management-menu.yml"));
         this.grantHistoryMenuManager = new ConfigManager(this, "grant-history-menu.yml", new File("plugins/StaffPanels/panels/"), new File("grant-history-menu.yml"));
-        this.configManagers = Arrays.asList(configManager, userMenuManager, rankMenuManager, grantHistoryMenuManager, messageManager);
+        this.editGrantMenuManager = new ConfigManager(this, "edit-grant-menu.yml", new File("plugins/StaffPanels/panels/"), new File("edit-grant-menu.yml"));
+        this.configManagers = Arrays.asList(configManager, userRankMenuManager, grantHistoryMenuManager, editGrantMenuManager, messageManager);
 
         populateIntegrations(this.luckPermsAPI = new LuckPermsAPI(), this.placeholderAPI = new PAPI());
 
@@ -104,12 +105,16 @@ public class SetRanksPlugin extends JavaPlugin {
         return rankMenuManager;
     }
 
-    public ConfigManager getUserMenuManager() {
-        return userMenuManager;
+    public ConfigManager getUserRankMenuManager() {
+        return userRankMenuManager;
     }
 
     public ConfigManager getGrantHistoryMenuManager() {
         return grantHistoryMenuManager;
+    }
+
+    public ConfigManager getEditGrantMenuManager() {
+        return editGrantMenuManager;
     }
 
     public List<ConfigManager> getConfigManagers() {
@@ -147,7 +152,7 @@ public class SetRanksPlugin extends JavaPlugin {
         new UnGrantCommand(getConfigManager().get("commands", "ungrant"), this);
         new GrantHistoryCommand(getConfigManager().get("commands", "grant-history"), this);
         new ClearGrantHistoryCommand(getConfigManager().get("commands", "clear-grant-history"), this);
-        new UserCommand(getConfigManager().get("commands", "user"), this);
+        //new UserCommand(getConfigManager().get("commands", "user"), this);
     }
 
     private void createConnectionDDBB() {

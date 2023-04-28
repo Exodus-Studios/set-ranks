@@ -1,0 +1,92 @@
+######################################################
+##                                                  ##
+##                    Set Ranks                     ##
+##                Developed by reussy               ##
+##                                                  ##
+######################################################
+
+# Yaml Validator: https://yamlchecker.com/
+# Yaml Formatter: https://codebeautify.org/yaml-validator
+# Format for gradients: "<GRADIENT:2C08BA>&lText here</GRADIENT:028A97>"
+# Format for default rainbow: "<RAINBOW1>Text here</RAINBOW>"
+# Format for solid colors: "<SOLID:FF0080>Text here"
+
+editor-menu:
+
+  title: "<GRADIENT:3aefff>&lEditing Grant {GRANT_ID}</GRADIENT:126f9a>"
+
+  rows: 6
+
+  # You can add / remove items from this section.
+  custom-items:
+
+    1:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position: 49
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "FEATHER"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&f► &b{GRANT_ID}"
+
+      # The lore of the item.
+      description:
+        - "&r"
+        - "&b► &fYou're currently editing this grant."
+
+    2:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position:
+        - 45
+        - 46
+        - 47
+        - 48
+        - 50
+        - 51
+        - 52
+        - 53
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "LIGHT_BLUE_STAINED_GLASS_PANE"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&r "
+
+      # The lore of the item.
+      description:
+        - "&r "
+
+  items:
+
+    rank-item:
+
+      # The material of the item.
+      # - Use "PLAYER_HEAD" to make it a player head.
+      material: "PAPER"
+
+      # The texture of the item.
+      # - Only works if the material is "PLAYER_HEAD".
+      texture: ""
+
+      # The display name of the item.
+      display-name: "&f► &bRank {RANK_NAME}"
+
+      # The lore of the item.
+      description:
+        - "&r "
+        - "&f► &3Click to manage this rank for this user."

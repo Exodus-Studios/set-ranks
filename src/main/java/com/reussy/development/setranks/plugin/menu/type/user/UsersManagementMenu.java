@@ -20,14 +20,14 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Stream;
 
-public class UserMenu extends BaseMenu {
+public class UsersManagementMenu extends BaseMenu {
 
     private final Player viewer;
     private final PaginatedGui paginatedGui;
     private String filter;
 
-    public UserMenu(SetRanksPlugin plugin, Player viewer) {
-        super(plugin, plugin.getUserMenuManager(), plugin.getUserMenuManager().get("user-menu", "title"), plugin.getUserMenuManager().getInt("user-menu", "rows"), true, plugin.getUserMenuManager().getInt("user-menu", "users-per-page"));
+    public UsersManagementMenu(SetRanksPlugin plugin, Player viewer) {
+        super(plugin, plugin.getUserRankMenuManager(), plugin.getUserRankMenuManager().get("user-rank-management-menu", "title"), plugin.getUserRankMenuManager().getInt("user-rank-management-menu", "rows"), true, plugin.getUserRankMenuManager().getInt("user-menu", "users-per-page"));
 
         this.viewer = viewer;
         this.filter = "ON";
@@ -39,7 +39,7 @@ public class UserMenu extends BaseMenu {
                 .pageSize(pageSize)
                 .disableAllInteractions()
                 .create();
-        setConfigManager(plugin.getUserMenuManager());
+        setConfigManager(plugin.getUserRankMenuManager());
         populatePlayers();
     }
 
@@ -139,7 +139,7 @@ public class UserMenu extends BaseMenu {
             });
         }
 
-        players.forEach(player -> paginatedGui.addItem(ItemBuilder.from(getPlayerItem(player)).asGuiItem(event -> new UserManagementMenu(plugin, viewer, player).open(viewer))));
+        players.forEach(player -> paginatedGui.addItem(ItemBuilder.from(getPlayerItem(player)).asGuiItem(event -> new SelectRankMenu(plugin, viewer, player).open(viewer))));
 
         return true;
     }

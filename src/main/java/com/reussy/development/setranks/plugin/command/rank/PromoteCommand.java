@@ -77,10 +77,8 @@ public class PromoteCommand extends BaseCommand {
 
         if (args.length == 1) {
             return Bukkit.getOnlinePlayers().stream().map(Player::getName).toList();
-        } else if (args.length == 2) {
-            return plugin.getLuckPermsAPI().get().getTrackManager().getLoadedTracks().stream().map(Track::getName).toList();
+        } else {
+            return List.of();
         }
-
-        return List.of();
     }
 }

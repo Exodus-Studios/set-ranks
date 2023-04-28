@@ -118,7 +118,7 @@ commands:
   # The command to use different sub-commands.
   main-command: "sr"
 
-  # The command to open the groups menu and manage them.
+  # The command to manage the ranks for a player.
   rank: "rank"
 
   # The command to set the rank of a player.
@@ -139,11 +139,25 @@ commands:
   # The command to clear the grant history of a player.
   clear-grant-history: "cleargranthistory"
 
-  # The command to open the users menu and manage them.
-  user: "user"
 
 messages:
   prefix: "&8[&cSR&8] "
+
+  help-message:
+    - "&8&m----------------------------------------"
+    - "&r         &b&lSet Ranks Help"
+    - "&r "
+    - " &8» &b/sr help &8- &7Shows this help message."
+    - " &8» &b/sr reload &8- &7Reloads the plugin."
+    - " &8» &b/sr version &8- &7Shows the plugin version."
+    - " &8» &b/rank <player> &8- &7Manage the ranks of a player."
+    - " &8» &b/promote <player> &8- &7Promote a player to the next rank."
+    - " &8» &b/setrank <player> &8- &7Set the rank of a player. (Console)"
+    - " &8» &b/grant <player> <reason> &8- &7Create a grant for a player."
+    - " &8» &b/ungrant <player> <reason> &8- &7Create an un-grant for a player and remove the last grant."
+    - " &8» &b/granth &8- &7Open the grant history menu."
+    - " &8» &b/cleargranthistory <player> &8- &7Clear the grant history of a player."
+    - "&8&m----------------------------------------"
 
   plugin-reloaded: "&aThe plugin has been reloaded successfully."
 
@@ -156,6 +170,8 @@ messages:
   you-cant-use-yourself: "&cYou can't use this on yourself."
 
   no-permission: "&cYou don't have the required permissions for this action."
+
+  rank-usage: "&cUsage: /rank <player>"
 
   set-rank:
     usage: "&cUsage: /setrank <player> <rank> [duration]"

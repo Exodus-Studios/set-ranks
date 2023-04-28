@@ -49,21 +49,21 @@ public class UnGrantCommand extends BaseCommand {
                                     userHistoryEntity.getUserChanged(),
                                     player.getUniqueId(),
                                     UserTypeChange.UNGRANT,
-                                    userHistoryEntity.getPermission(), // In this case, the field permission is used to store the group name.
+                                    userHistoryEntity.getRank(), // In this case, the field permission is used to store the group name.
                                     new Date(),
                                     reason
                             ));
 
-                    plugin.getGroupController().hasGroup(userHistoryEntity.getUserChanged(), userHistoryEntity.getPermission()).thenAcceptAsync(hasGroup -> {
+                    plugin.getGroupController().hasGroup(userHistoryEntity.getUserChanged(), userHistoryEntity.getRank()).thenAcceptAsync(hasGroup -> {
                         if (hasGroup) {
-                            Utils.runCommand(sender, "lp user " + userHistoryEntity.getUserChanged() + " parent remove " + userHistoryEntity.getPermission());
+                            Utils.runCommand(sender, "lp user " + userHistoryEntity.getUserChanged() + " parent remove " + userHistoryEntity.getRank());
                         }
                     });
 
                     Utils.send(player, plugin.getMessageManager().get(PluginMessages.UNGRANT_CREATED, false)
                             .replace("{GRANT_ID}", String.valueOf(id))
                             .replace("{PLAYER_NAME}", Objects.requireNonNull(Bukkit.getOfflinePlayer(userHistoryEntity.getUserChanged()).getName()))
-                            .replace("{GROUP_NAME}", userHistoryEntity.getPermission())
+                            .replace("{GROUP_NAME}", userHistoryEntity.getRank())
                             .replace("{REASON}", reason));
                 });
 

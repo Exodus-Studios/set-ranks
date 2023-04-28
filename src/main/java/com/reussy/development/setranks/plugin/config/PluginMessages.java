@@ -8,6 +8,7 @@ public enum PluginMessages {
     MUST_BE_PLAYER("must-be-player"),
     PLAYER_NOT_FOUND("player-not-found"),
     NO_PERMISSION("no-permission"),
+    RANK_USAGE("rank-usage"),
     SET_RANK_USAGE("set-rank.usage"),
     SET_RANK_RANK_NOT_FOUND("set-rank.rank-not-found"),
     SET_RANK_INVALID_DURATION("set-rank.invalid-duration"),

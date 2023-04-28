@@ -3,8 +3,7 @@ package com.reussy.development.setranks.plugin.command.rank;
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.command.BaseCommand;
 import com.reussy.development.setranks.plugin.config.PluginMessages;
-import com.reussy.development.setranks.plugin.menu.type.rank.RankMenu;
-import com.reussy.development.setranks.plugin.menu.type.user.UserManagementMenu;
+import com.reussy.development.setranks.plugin.menu.type.user.SelectRankMenu;
 import com.reussy.development.setranks.plugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -25,7 +24,8 @@ public class RankCommand extends BaseCommand {
         final Player player = (Player) sender;
 
         if (args.length == 0) {
-            new RankMenu(plugin, player).open(player);
+            Utils.send(player, plugin.getMessageManager().get(PluginMessages.RANK_USAGE, false));
+            return false;
         } else if (args.length == 1) {
             final OfflinePlayer target = Bukkit.getOfflinePlayerIfCached(args[0]);
 
@@ -34,7 +34,8 @@ public class RankCommand extends BaseCommand {
                 return false;
             }
 
-            new UserManagementMenu(plugin, player, target).open(player);
+            new SelectRankMenu(plugin, player, target).open(player);
+            return true;
         }
 
         return true;
