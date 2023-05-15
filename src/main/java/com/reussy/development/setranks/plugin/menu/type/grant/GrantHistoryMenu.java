@@ -16,6 +16,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Comparator;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -72,7 +74,9 @@ public class GrantHistoryMenu extends BaseMenu {
     }
 
     private void populateGrants() {
-        plugin.getQueryManager().getUserHistoryList(target.getUniqueId()).forEach(entity -> paginatedGui.addItem(ItemBuilder.from(createGrantItem(entity)).asGuiItem(event -> new GrantEditMenu(plugin, viewer, entity).open(viewer))));
+        final List<UserHistoryEntity> userHistory = plugin.getQueryManager().getUserHistoryList(target.getUniqueId());
+        userHistory.sort(Comparator.comparing(UserHistoryEntity::getDate).reversed());
+        userHistory.forEach(entity -> paginatedGui.addItem(ItemBuilder.from(createGrantItem(entity)).asGuiItem(event -> new GrantEditMenu(plugin, viewer, entity).open(viewer))));
     }
 
     private ItemStack createGrantItem(@NotNull UserHistoryEntity entity) {
