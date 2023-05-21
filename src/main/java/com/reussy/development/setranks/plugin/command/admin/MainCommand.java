@@ -6,6 +6,7 @@ import com.reussy.development.setranks.plugin.config.ConfigManager;
 import com.reussy.development.setranks.plugin.config.PluginMessages;
 import com.reussy.development.setranks.plugin.utils.Utils;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -41,7 +42,6 @@ public class MainCommand extends BaseCommand {
                     plugin.getConfigManagers().forEach(ConfigManager::reload);
                     Utils.send(sender, plugin.getMessageManager().get(PluginMessages.PLUGIN_RELOADED));
                 }
-                case "help" -> Utils.send(sender, plugin.getMessageManager().getList("messages", "help-message"), null);
                 case "version" -> {
                     if (!hasPermission(sender, "staffutilities.command.version")) {
                         Utils.send(sender, plugin.getMessageManager().get(PluginMessages.NO_PERMISSION));
@@ -51,8 +51,10 @@ public class MainCommand extends BaseCommand {
                     Utils.send(sender, "&r         &b&lSet Ranks Help");
                     Utils.send(sender, "&r");
                     Utils.send(sender, "&r &bVersion: &7" + plugin.getDescription().getVersion());
-                    Utils.send(sender, "&r &bAuthor: &7" + "reussy");
+                    Utils.send(sender, "&r &bAuthor: &7" + "reussy (https://reussy.me)");
                 }
+
+                default -> Utils.send((Player) sender, plugin.getConfigManager().getList("messages", "help-message"));
             }
         } else if (args.length == 2) {
             if (args[0].equalsIgnoreCase("help") && args[1].equalsIgnoreCase("1")) {

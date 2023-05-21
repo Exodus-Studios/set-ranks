@@ -153,11 +153,11 @@ public class SelectTimeMenu extends BaseMenu {
     }
 
     private int getGiveRankPosition() {
-        return Integer.parseInt(getConfigManager().get("select-time-menu.items.give-rank-item", "position"));
+        return getConfigManager().getInt("select-time-menu.items.give-rank-item", "position");
     }
 
     private int getBackPosition() {
-        return Integer.parseInt(getConfigManager().get("select-time-menu", "back-position"));
+        return getConfigManager().getInt("select-time-menu", "back-position");
     }
 
     private int number(@NotNull String time) {

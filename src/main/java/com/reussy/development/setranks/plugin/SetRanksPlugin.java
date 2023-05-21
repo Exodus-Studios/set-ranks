@@ -33,14 +33,13 @@ import java.util.stream.Stream;
 
 public class SetRanksPlugin extends JavaPlugin {
 
-
     private final ConnectionManager connectionManager = new ConnectionManager(this);
     private QueryManager queryManager;
     private PluginStatus pluginStatus;
     private ConfigManager configManager;
     private MessageManager messageManager;
-    private ConfigManager rankMenuManager;
     private ConfigManager userRankMenuManager;
+    private ConfigManager grantPlayerMenuManager;
     private ConfigManager grantHistoryMenuManager;
     private ConfigManager editGrantMenuManager;
     private List<ConfigManager> configManagers;
@@ -60,8 +59,9 @@ public class SetRanksPlugin extends JavaPlugin {
         //this.rankMenuManager = new ConfigManager(this, "rank-menu.yml", new File("plugins/StaffPanels/panels/"), new File("rank-menu.yml"));
         this.userRankMenuManager = new ConfigManager(this, "user-rank-management-menu.yml", new File("plugins/StaffPanels/panels/"), new File("user-rank-management-menu.yml"));
         this.grantHistoryMenuManager = new ConfigManager(this, "grant-history-menu.yml", new File("plugins/StaffPanels/panels/"), new File("grant-history-menu.yml"));
+        this.grantPlayerMenuManager = new ConfigManager(this, "grant-player-menu.yml", new File("plugins/StaffPanels/panels/"), new File("grant-player-menu.yml"));
         this.editGrantMenuManager = new ConfigManager(this, "edit-grant-menu.yml", new File("plugins/StaffPanels/panels/"), new File("edit-grant-menu.yml"));
-        this.configManagers = Arrays.asList(configManager, userRankMenuManager, grantHistoryMenuManager, editGrantMenuManager, messageManager);
+        this.configManagers = Arrays.asList(configManager, userRankMenuManager, grantHistoryMenuManager, editGrantMenuManager, grantPlayerMenuManager, messageManager);
 
         populateIntegrations(this.luckPermsAPI = new LuckPermsAPI(), this.placeholderAPI = new PAPI());
 
@@ -101,12 +101,12 @@ public class SetRanksPlugin extends JavaPlugin {
         return messageManager;
     }
 
-    public ConfigManager getRankMenuManager() {
-        return rankMenuManager;
-    }
-
     public ConfigManager getUserRankMenuManager() {
         return userRankMenuManager;
+    }
+
+    public ConfigManager getGrantPlayerMenuManager() {
+        return grantPlayerMenuManager;
     }
 
     public ConfigManager getGrantHistoryMenuManager() {

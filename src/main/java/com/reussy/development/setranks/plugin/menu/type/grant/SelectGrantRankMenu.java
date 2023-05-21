@@ -1,4 +1,4 @@
-package com.reussy.development.setranks.plugin.menu.type.user;
+package com.reussy.development.setranks.plugin.menu.type.grant;
 
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.menu.BaseMenu;
@@ -9,40 +9,34 @@ import dev.triumphteam.gui.guis.Gui;
 import dev.triumphteam.gui.guis.PaginatedGui;
 import net.kyori.adventure.text.Component;
 import net.luckperms.api.model.group.Group;
-import net.luckperms.api.model.user.User;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Stream;
 
-public class SelectRankMenu extends BaseMenu {
+public class SelectGrantRankMenu extends BaseMenu {
 
-    private final Player manager;
-    private final OfflinePlayer target;
-    private final CompletableFuture<User> user;
+    private final Player viewer;
+    private final OfflinePlayer granted;
     private final PaginatedGui paginatedGui;
 
-    public SelectRankMenu(SetRanksPlugin plugin, Player manager, @NotNull OfflinePlayer target) {
-        super(plugin, plugin.getUserRankMenuManager(), plugin.getUserRankMenuManager().get("select-rank-menu", "title"), plugin.getUserRankMenuManager().getInt("select-rank-menu", "rows"), true, plugin.getUserRankMenuManager().getInt("select-rank-menu", "ranks-per-page"));
+    public SelectGrantRankMenu(SetRanksPlugin plugin, Player viewer, OfflinePlayer granted) {
+        super(plugin, plugin.getGrantPlayerMenuManager().get("select-rank-menu", "title"), plugin.getGrantPlayerMenuManager().getInt("select-rank-menu", "rows"), true, plugin.getGrantPlayerMenuManager().getInt("select-rank-menu", "groups-per-page"));
+        this.viewer = viewer;
+        this.granted = granted;
 
-        this.manager = manager;
-        this.target = target;
-        this.user = plugin.getLuckPermsAPI().get().getUserManager().loadUser(target.getUniqueId());
-
-        paginatedGui = Gui
-                .paginated()
+        this.paginatedGui = Gui.paginated()
+                .title(Component.text(Utils.colorize(title)))
                 .rows(rows)
-                .title(Component.text(Utils.colorize(title.replace("{PLAYER_NAME}", Objects.requireNonNull(target.getName())))))
                 .pageSize(pageSize)
                 .disableAllInteractions()
                 .create();
-        setConfigManager(plugin.getUserRankMenuManager());
+
+        setConfigManager(plugin.getGrantPlayerMenuManager());
     }
 
     /**
@@ -58,16 +52,10 @@ public class SelectRankMenu extends BaseMenu {
      */
     @Override
     protected void setItems() {
-        plugin.getElementBuilder().populateCustomItems(target, paginatedGui, getConfigManager(), getConfigManager().getSection("select-rank-menu.custom-items"), null);
+        plugin.getElementBuilder().populateCustomItems(granted, paginatedGui, getConfigManager(), getConfigManager().getSection("select-rank-menu.custom-items"), null);
         plugin.getElementBuilder().setNavigationItems(paginatedGui, getNextPosition(), getPreviousPosition());
 
-        plugin.getLuckPermsAPI().get().getGroupManager().getLoadedGroups().forEach(group -> paginatedGui.addItem(ItemBuilder.from(createRankItem(group)).asGuiItem(event -> {
-            try {
-                new SelectTimeMenu(plugin, manager, target, user.get(), group).open(manager);
-            } catch (InterruptedException | ExecutionException e) {
-                throw new RuntimeException(e);
-            }
-        })));
+        plugin.getLuckPermsAPI().get().getGroupManager().getLoadedGroups().forEach(group -> paginatedGui.addItem(ItemBuilder.from(createRankItem(group)).asGuiItem(event -> new SelectGrantReasonMenu(plugin, viewer, granted, group).open(viewer))));
     }
 
     /**

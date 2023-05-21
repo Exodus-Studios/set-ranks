@@ -187,7 +187,7 @@ messages:
     failed: "&cFailed to promote &6{PLAYER_NAME} &ato rank &6{GROUP_NAME}&c."
 
   grant:
-    grant-usage: "&cUsage: /grant <player> <rank> <reason>"
+    grant-usage: "&cUsage: /grant <player>"
     ungrant-usage: "&cUsage: /ungrant <id> <reason>"
     grant-history-usage: "&cUsage: /granth <player>"
     clear-grant-history-usage: "&cUsage: /cleargranthistory <player>"

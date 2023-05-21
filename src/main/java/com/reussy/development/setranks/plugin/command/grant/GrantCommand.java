@@ -3,8 +3,7 @@ package com.reussy.development.setranks.plugin.command.grant;
 import com.reussy.development.setranks.plugin.SetRanksPlugin;
 import com.reussy.development.setranks.plugin.command.BaseCommand;
 import com.reussy.development.setranks.plugin.config.PluginMessages;
-import com.reussy.development.setranks.plugin.sql.entity.UserHistoryEntity;
-import com.reussy.development.setranks.plugin.sql.entity.UserTypeChange;
+import com.reussy.development.setranks.plugin.menu.type.grant.SelectGrantRankMenu;
 import com.reussy.development.setranks.plugin.utils.Utils;
 import net.luckperms.api.model.group.Group;
 import org.bukkit.Bukkit;
@@ -13,9 +12,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 public class GrantCommand extends BaseCommand {
     public GrantCommand(String name, SetRanksPlugin plugin) {
@@ -29,6 +26,15 @@ public class GrantCommand extends BaseCommand {
 
         final Player player = (Player) sender;
 
+        if (args.length == 1) {
+            final OfflinePlayer target = plugin.getServer().getOfflinePlayerIfCached(args[0]);
+
+            new SelectGrantRankMenu(plugin, player, target).open(player);
+        } else {
+            Utils.send(player, plugin.getMessageManager().get(PluginMessages.GRANT_USAGE, false));
+        }
+
+        /*
         if (args.length < 3) {
             Utils.send(player, plugin.getMessageManager().get(PluginMessages.GRANT_USAGE, false));
         } else {
@@ -62,6 +68,8 @@ public class GrantCommand extends BaseCommand {
                     .replace("{PLAYER_NAME}", Objects.requireNonNull(target.getName())).replace("{GROUP_NAME}", group.getName()).replace("{REASON}", reason));
             return true;
         }
+
+         */
 
         return false;
     }

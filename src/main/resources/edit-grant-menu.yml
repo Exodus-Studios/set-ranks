@@ -15,7 +15,10 @@ editor-menu:
 
   title: "<GRADIENT:3aefff>&lEditing Grant {GRANT_ID}</GRADIENT:126f9a>"
 
-  rows: 6
+  rows: 4
+
+  # The position of the item to go to the previous menu.
+  back-position: 27
 
   # You can add / remove items from this section.
   custom-items:
@@ -24,7 +27,7 @@ editor-menu:
 
       # The position of the item in the menu.
       # - The position starts from 0.
-      position: 49
+      position: 31
 
       # The material of the item.
       # - Use "PLAYER_HEAD" to make it a player head.
@@ -47,14 +50,13 @@ editor-menu:
       # The position of the item in the menu.
       # - The position starts from 0.
       position:
-        - 45
-        - 46
-        - 47
-        - 48
-        - 50
-        - 51
-        - 52
-        - 53
+        - 28
+        - 29
+        - 30
+        - 32
+        - 33
+        - 34
+        - 35
 
       # The material of the item.
       # - Use "PLAYER_HEAD" to make it a player head.
@@ -73,20 +75,27 @@ editor-menu:
 
   items:
 
-    rank-item:
+    cancel-grant-item:
+
+      # The position of the item in the menu.
+      # - The position starts from 0.
+      position: 13
 
       # The material of the item.
       # - Use "PLAYER_HEAD" to make it a player head.
-      material: "PAPER"
+      material: "BARRIER"
 
       # The texture of the item.
       # - Only works if the material is "PLAYER_HEAD".
       texture: ""
 
       # The display name of the item.
-      display-name: "&f► &bRank {RANK_NAME}"
+      display-name: "&f► &cCancel Grant"
 
       # The lore of the item.
       description:
         - "&r "
-        - "&f► &3Click to manage this rank for this user."
+        - "&f► &fThis will cancel this grant"
+        - "&f► &fand revert the player's rank."
+        - "&r "
+        - "&f► &3Click to cancel this grant."
